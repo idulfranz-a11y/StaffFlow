@@ -9,32 +9,40 @@
   </head>
   <body>
     <div class="bord">
-      <h1 class="header">StaffFlow</h1>
-      <img id="icon" src="icon.png" alt="icon" />
-      <div class="email">
-        <p style="color: green"><b>Email</b></p>
-        <input
-          placeholder="ReneBatterbonia@gmail.com"
-          id="email "
-          type="email"
-          class="input"
-        />
+      <div class="leftside">
+        <h1 class="header">StaffFlow</h1>
+        <img id="icon" src="icon.png" alt="icon" />
+        <div class="idNumer">
+          <p style="color: green"><b>Employee's ID</b></p>
+          <input
+            placeholder="Employee's ID"
+            id="idNumber "
+            type="text"
+            class="input"
+          />
+        </div>
+        <div class="password">
+          <p style="color: green"><b>Password</b></p>
+          <input id="password" type="password" class="input" />
+          <button id="eye-icon" type="button">👁</button>
+          <a href="forgot.html" id="forgot" class="forgot">Forgot Password</a>
+        </div>
       </div>
-      <div class="password">
-        <p style="color: green"><b>Password</b></p>
-        <input id="password" type="password" class="input" />
-        <button id="eye-icon" type="button">👁</button>
-        <a href="forgot.html" class="forgot">Forgot Password</a>
-      </div>
+
       <button type="button" id="signin">Sign In</button>
 
-      <div class="signup-border">
-        <h1 style="color: aliceblue" class="greetings">Welcome back!</h1>
+      <div class="signup-border"></div>
+      <div class="rightside">
+        <h1 style="color: aliceblue" class="greetings">
+          Ready to Manage Your Tasks?
+        </h1>
         <h3 id="description" style="color: white" class="mama">
-          Work smarter. Stay organized. Keep everything flowing.
+          No account yet? Create one here.
         </h3>
-
         <button id="sign-up-button" type="button">Sign up</button>
+        <div class="righside">
+          <h1 class="header-rightside" style="color: white">Sign In</h1>
+        </div>
       </div>
     </div>
     <script src="login.js"></script>

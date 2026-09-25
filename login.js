@@ -3,6 +3,7 @@ const password = document.getElementById("password");
 const togglePassword = document.getElementById("eye-icon");
 
 togglePassword.addEventListener("click", function () {
+  on;
   if (password.type === "password") {
     password.type = "text";
   } else {
@@ -11,12 +12,16 @@ togglePassword.addEventListener("click", function () {
 });
 
 console.log("dong rene");
-const signup = document.getElementById("sign-up-button");
-const signin = document.getElementById("signin");
+const signup = document.getElementById("clickSignUP");
+const signin = document.getElementById("clickSignIn");
 const leftside = document.querySelector(".leftside");
 const greetings = document.querySelector(".greetings");
 const mama = document.querySelector(".mama");
-
+const headerRightside = document.querySelector(".header-rightside");
+const leftDescription = document.getElementById("left-description");
+const allRight = document.getElementsByClassName("all-right");
+const legitSignUp = document.getElementById("legitNaSignUp");
+const legitSignIn = document.getElementById("signin");
 //animation starts here
 //to remove all the elements in the left side(aside from the sign in button)
 
@@ -36,6 +41,19 @@ signup.addEventListener("click", function () {
 
   signin.style.backgroundColor = "#3aac6c";
   signup.style.backgroundColor = "#2e8b57";
+
+  headerRightside.style.zIndex = "3";
+  leftDescription.style.zIndex = "3";
+
+  // calling all the elements in sign up atay
+
+  for (let i = 0; i < allRight.length; i++) {
+    allRight[i].style.zIndex = "3";
+  }
+  signup.style.zIndex = "-3";
+  legitSignUp.style.zIndex = "3";
+  legitSignIn.style.zIndex = "-3";
+  signin.style.zIndex = "3";
 });
 
 // goes back to original place
@@ -53,4 +71,16 @@ signin.addEventListener("click", function () {
 
   signin.style.backgroundColor = "#2e8b57";
   signup.style.backgroundColor = "#3aac6c";
+
+  headerRightside.style.zIndex = "-3";
+  leftDescription.style.zIndex = "-3";
+
+  //at nganyon tayo ay magluluto na
+  for (let i = 0; i < allRight.length; i++) {
+    allRight[i].style.zIndex = "-3";
+  }
+  signup.style.zIndex = "3";
+  legitSignUp.style.zIndex = "-3";
+  legitSignIn.style.zIndex = "3";
+  signin.style.zIndex = "-3";
 });

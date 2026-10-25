@@ -86,3 +86,54 @@ signin.addEventListener("click", function () {
   signin.style.zIndex = "-3";
   fillup.style.zIndex = "-3";
 });
+
+//log in logic
+
+const employeeId = document.getElementById("idNumber");
+const loginPassword = document.getElementById("password");
+const loginMessage = document.getElementById("loginMessage");
+const loginButton = document.getElementById("signin");
+
+loginButton.addEventListener("click", async function () {
+  const idNumber = employeeId.value.trim();
+  const passwordValue = loginPassword.value;
+
+  if (!idNumber || !passwordValue) {
+    loginMessage.textContent = "Please enter your employee ID and password.";
+    return;
+  }
+
+  loginMessage.textContent = "Checking your credentials...";
+  loginButton.disabled = true;
+
+  try {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id_number: idNumber,
+        password: passwordValue,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      loginMessage.textContent =
+        data.message || "Login failed. Please try again.";
+      return;
+    }
+
+    loginMessage.textContent = `Welcome, ${data.user.first_name}! Login successful.`;
+
+    console.log("Logged-in user:", data.user);
+  } catch (error) {
+    console.error("Login request failed:", error);
+    loginMessage.textContent =
+      "Unable to connect to the server. Please try again.";
+  } finally {
+    loginButton.disabled = false;
+  }
+});

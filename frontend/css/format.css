@@ -1,0 +1,162 @@
+body {
+  margin: 0%;
+  padding: 0%;
+  border: 0%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background-color: #edf4ee;
+}
+#sideBar {
+  background-color: #183e36;
+  height: 100vh;
+  width: 15%;
+  overflow: hidden;
+  isolation: isolate;
+}
+.bottomcircle::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(105, 170, 145, 0.12);
+  border-radius: 50%;
+  top: 510px;
+  left: -230px;
+  z-index: -1;
+}
+.bottomcircle::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background-color: #183e36;
+  border-radius: 53%;
+  top: 565px;
+  right: 55px;
+
+  z-index: -1;
+}
+
+.topcircle::before {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: rgba(105, 170, 145, 0.12);
+  border-radius: 50%;
+  top: -280px;
+  z-index: -1;
+}
+.topcircle::after {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: #183e36;
+  border-radius: 50%;
+  top: -250px;
+  left: 70px;
+  z-index: -1;
+}
+
+.stafflow {
+  z-index: 3;
+}
+
+#side-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  position: relative;
+  top: 20%;
+}
+#side-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-left: 25px;
+  color: white;
+  text-decoration: none;
+  font-size: 23px;
+  font-family: "Inter", sans-serif;
+}
+#side-nav a svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.logo {
+  position: relative;
+  top: 1%;
+  left: -10px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 10px;
+}
+.logo h1 {
+  color: white;
+  font-family: "Poppins", sans-serif;
+}
+.logo img {
+  width: 80px;
+  z-index: 23;
+}
+#log-out {
+  position: relative;
+  top: 200px;
+  right: 15px;
+}
+
+/* topbar content starts here*/
+.topbar {
+  position: absolute;
+  top: 0px;
+  left: 15%;
+  height: 100px;
+  width: 100%;
+  background-color: #2d5e4e;
+
+  overflow: hidden;
+}
+.greetings strong {
+  position: relative;
+  left: 140px;
+  top: 35px;
+  font-size: 45px;
+  font-family: "Inter", sans-serif;
+  color: #edf4ee;
+}
+.greetings p {
+  position: relative;
+  top: -47px;
+  font-size: 18px;
+  font-family: "Inter", sans-serif;
+  left: 142px;
+  color: #edf4ee;
+}
+
+/*main*/
+
+main {
+  position: relative;
+  left: 50%;
+  top: -30rem;
+}
+
+#hello {
+  position: absolute;
+  top: -22.3rem;
+  left: -33.3rem;
+  font-size: 35px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  color: #183e36;
+}
+#here {
+  position: absolute;
+  font-size: 24px;
+  top: -19rem;
+  left: -27.5%;
+}

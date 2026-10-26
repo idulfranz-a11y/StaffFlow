@@ -1,0 +1,48 @@
+/* Dashboard CCS*/
+
+.box {
+  display: flex;
+  height: 250px;
+  width: 325px;
+  background-color: white;
+  border-radius: 30px;
+}
+#box1 {
+  position: absolute;
+  top: -220px;
+  left: 28%;
+}
+#box2 {
+  position: absolute;
+  top: -220px;
+  left: 8%;
+}
+#box3 {
+  position: absolute;
+  top: -220px;
+  left: -12%;
+}
+#box4 {
+  position: absolute;
+  top: -220px;
+  left: -32%;
+}
+.bigBox {
+  position: absolute;
+  top: 70px;
+  left: -32%;
+  background-color: white;
+  height: 390px;
+  width: 50%;
+  border-radius: 30px;
+}
+
+/*Registration*/
+.box {
+  position: absolute;
+  top: -900%;
+  left: -30%;
+  height: 42rem;
+  width: 77%;
+  background-color: white;
+}

@@ -125,10 +125,19 @@ loginButton.addEventListener("click", async function () {
         data.message || "Login failed. Please try again.";
       return;
     }
+    loginMessage.textContent = `Welcome, ${data.user.first_name}!`;
 
-    loginMessage.textContent = `Welcome, ${data.user.first_name}! Login successful.`;
+    const role = data.user.role;
 
-    console.log("Logged-in user:", data.user);
+    if (role === "admin") {
+      window.location.href = "/layout/adminEnd/dashboared.html";
+    } else if (role === "manager") {
+      window.location.href = "/layout/manager/manager.html";
+    } else if (role === "employee") {
+      window.location.href = "/layout/employeeEnd/employedashboard.html";
+    } else {
+      loginMessage.textContent = "Your account has an unrecognized role.";
+    }
   } catch (error) {
     console.error("Login request failed:", error);
     loginMessage.textContent =

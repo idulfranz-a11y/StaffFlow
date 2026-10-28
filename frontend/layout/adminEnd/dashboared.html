@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/format.css" />
-    <link rel="stylesheet" href="/frontend/css/adminFT.css" />
+    <link rel="stylesheet" href="../../css/adminFT.css" />
     <link rel="icon" href="../../image/icon.png" />
     <title>StaffFlow</title>
 
@@ -59,11 +59,41 @@
     <main>
       <p id="hello">Good Day Admin!</p>
       <p id="here">Here's what's happening today</p>
-      <div class="box" id="box1"></div>
-      <div class="box" id="box2"></div>
-      <div class="box" id="box3"></div>
-      <div class="box" id="box4"></div>
-      <div class="bigBox"></div>
+      <div class="box" id="box1">
+        <div class="lucid-circle">
+          <i data-lucide="user-round-x" class="lucid-icon"></i>
+        </div>
+        <p class="tag">Inactive Accounts</p>
+        <p class="value">5</p>
+      </div>
+      <div class="box" id="box2">
+        <div class="lucid-circle">
+          <i data-lucide="user-plus" class="lucid-icon"></i>
+        </div>
+
+        <p class="tag">Pending Accounts</p>
+        <p class="value">5</p>
+      </div>
+      <div class="box" id="box3">
+        <div class="lucid-circle">
+          <i data-lucide="user-round" class="lucid-icon"></i>
+        </div>
+
+        <p class="tag">Total Manager</p>
+        <p class="value">5</p>
+      </div>
+      <div class="box" id="box4">
+        <div class="lucid-circle">
+          <i data-lucide="users" class="lucid-icon"></i>
+        </div>
+
+        <p class="tag">Total Employee</p>
+        <p class="value">95</p>
+      </div>
+      <div class="bigBox">
+        <h1 id="overview">SYSTEM OVERVIEW</h1>
+      </div>
+      <div class="smolbox"></div>
     </main>
     <script>
       lucide.createIcons();

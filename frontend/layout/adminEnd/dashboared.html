@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
     <link rel="stylesheet" href="../../css/format.css" />
     <link rel="stylesheet" href="../../css/adminFT.css" />
     <link rel="stylesheet" href="../../css/hover.css" />
@@ -64,15 +68,15 @@
       <div class="box" id="box1">
         <p class="tag">Inactive Accounts</p>
         <p class="value">0</p>
-        <div class="lucid-circle">
-          <i data-lucide="user-round-x" class="lucid-icon"></i>
+        <div class="lucid-circle-inactive">
+          <i data-lucide="user-round-x" class="lucid-icon-inactive"></i>
         </div>
       </div>
       <div class="box" id="box2">
         <p class="tag">Pending Accounts</p>
         <p class="value">6</p>
-        <div class="lucid-circle">
-          <i data-lucide="user-plus" class="lucid-icon"></i>
+        <div class="lucid-circle-pending">
+          <i data-lucide="user-plus" class="lucid-icon-pending"></i>
         </div>
       </div>
       <div class="box" id="box3">
@@ -91,8 +95,21 @@
       </div>
       <div class="bigBox">
         <h1 id="overview">SYSTEM OVERVIEW</h1>
+        <p class="bigBox-description">
+          How accounts in your workspace distributed
+        </p>
       </div>
-      <div class="smolbox"></div>
+      <div class="smolbox">
+        <h1 class="quick">Quick Actions</h1>
+        <p class="smol-box-description">
+          Search an account's status without leaving Home section.
+        </p>
+        <div class="background">
+          <i id="basta-icon" data-lucide="user-round-pen"></i>
+        </div>
+        <p id="deactive">Deactive / Reactive Account</p>
+        <p id="current">Current Inactive Accounts</p>
+      </div>
     </main>
     <script>
       lucide.createIcons();

@@ -1,0 +1,49 @@
+#side-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding-left: 25px;
+  height: 50px;
+  margin: 0;
+
+  color: white;
+  text-decoration: none;
+  font-size: 23px;
+  font-family: "Inter", sans-serif;
+  z-index: 1;
+
+  position: relative;
+}
+
+#side-nav {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.box-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 270px;
+  height: 60px; /* Matches link height */
+
+  background-color: #2d5e4e;
+  border-radius: 20px;
+
+  z-index: 0;
+  pointer-events: none;
+
+  transition: top 0.4s ease;
+}
+
+#side-nav a {
+  transition: transform 0.3s ease;
+}
+
+#side-nav a:hover {
+  transform: translateX(10px);
+}

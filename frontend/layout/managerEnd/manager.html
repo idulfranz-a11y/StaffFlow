@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/format.css" />
+    <link rel="stylesheet" href="../../css/hover.css" />
+    <link rel="stylesheet" href="../../css/managerFT.css" />
     <link rel="icon" href="../../image/icon.png" />
     <title>StaffFlow</title>
 
@@ -23,6 +25,7 @@
       </div>
 
       <nav id="side-nav">
+        <div class="box-hover"></div>
         <a href="manager.html">
           <i data-lucide="house"></i>
           <span>Home</span>
@@ -56,12 +59,43 @@
       </div>
     </div>
     <main>
-      <p id="hello">Good Day Employee!</p>
+      <p id="hello">Good Day Manager!</p>
       <p id="here">Here's what's happening today</p>
-      <h2>reference</h2>
+      <div class="boxes" id="boxes1">
+        <p class="box-description">Overdue Task</p>
+        <i class="manager-icon" data-lucide="triangle-exclamation-point"></i>
+      </div>
+      <div class="boxes" id="boxes2">
+        <p class="box-description">Pending Task</p>
+        <i class="manager-icon" data-lucide="clock"></i>
+      </div>
+      <div class="boxes" id="boxes3">
+        <p class="box-description">Task Done</p>
+        <i class="manager-icon" data-lucide="file-check"></i>
+      </div>
+      <div class="boxes" id="boxes4">
+        <p class="box-description">Total Task</p>
+        <i class="manager-icon" data-lucide="clipboard-list"></i>
+      </div>
+
+      <div class="vigvox">
+        <h1 id="header-manager">Recent Teams</h1>
+
+        <table class="manager-table">
+          <thead>
+            <tr>
+              <th>Team ID</th>
+              <th>Team Name</th>
+              <th>Members</th>
+              <th>Date Created</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
     </main>
     <script>
       lucide.createIcons();
     </script>
+    <script src="../../js/hover.js"></script>
   </body>
 </html>

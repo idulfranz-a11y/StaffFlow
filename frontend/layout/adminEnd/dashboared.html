@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/format.css" />
     <link rel="stylesheet" href="../../css/adminFT.css" />
+    <link rel="stylesheet" href="../../css/hover.css" />
     <link rel="icon" href="../../image/icon.png" />
     <title>StaffFlow</title>
 
@@ -24,22 +25,23 @@
       </div>
 
       <nav id="side-nav">
-        <a href="dashboared.html">
+        <div class="box-hover"></div>
+        <a id="dashboard" href="dashboared.html">
           <i data-lucide="house"></i>
           <span>Home</span>
         </a>
 
-        <a href="registrations.html">
+        <a id="registration" href="registrations.html">
           <i data-lucide="user-plus"></i>
           <span>Registrations</span>
         </a>
 
-        <a href="manage.html">
+        <a id="manage" href="manage.html">
           <i data-lucide="users"></i>
           <span>Manage Accounts</span>
         </a>
 
-        <a href="setting.html">
+        <a id="setting" href="setting.html">
           <i data-lucide="settings"></i>
           <span>Settings</span>
         </a>
@@ -60,35 +62,32 @@
       <p id="hello">Good Day Admin!</p>
       <p id="here">Here's what's happening today</p>
       <div class="box" id="box1">
+        <p class="tag">Inactive Accounts</p>
+        <p class="value">0</p>
         <div class="lucid-circle">
           <i data-lucide="user-round-x" class="lucid-icon"></i>
         </div>
-        <p class="tag">Inactive Accounts</p>
-        <p class="value">5</p>
       </div>
       <div class="box" id="box2">
+        <p class="tag">Pending Accounts</p>
+        <p class="value">6</p>
         <div class="lucid-circle">
           <i data-lucide="user-plus" class="lucid-icon"></i>
         </div>
-
-        <p class="tag">Pending Accounts</p>
-        <p class="value">5</p>
       </div>
       <div class="box" id="box3">
+        <p class="tag">Total Manager</p>
+        <p class="value">4</p>
         <div class="lucid-circle">
           <i data-lucide="user-round" class="lucid-icon"></i>
         </div>
-
-        <p class="tag">Total Manager</p>
-        <p class="value">5</p>
       </div>
       <div class="box" id="box4">
+        <p class="tag">Total Employee</p>
+        <p class="value">95</p>
         <div class="lucid-circle">
           <i data-lucide="users" class="lucid-icon"></i>
         </div>
-
-        <p class="tag">Total Employee</p>
-        <p class="value">95</p>
       </div>
       <div class="bigBox">
         <h1 id="overview">SYSTEM OVERVIEW</h1>
@@ -98,5 +97,6 @@
     <script>
       lucide.createIcons();
     </script>
+    <script src="../../js/hover.js"></script>
   </body>
 </html>

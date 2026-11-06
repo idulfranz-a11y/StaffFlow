@@ -132,7 +132,7 @@ loginButton.addEventListener("click", async function () {
     if (role === "admin") {
       window.location.href = "/layout/adminEnd/dashboared.html";
     } else if (role === "manager") {
-      window.location.href = "/layout/manager/manager.html";
+      window.location.href = "/layout/managerEnd/manager.html";
     } else if (role === "employee") {
       window.location.href = "/layout/employeeEnd/employedashboard.html";
     } else {

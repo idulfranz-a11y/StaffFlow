@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/format.css" />
     <link rel="stylesheet" href="../../css/adminFT.css" />
+    <link rel="stylesheet" href="../../css/hover.css" />
     <link rel="icon" href="../../image/icon.png" />
     <title>StaffFlow</title>
 
@@ -17,13 +18,14 @@
         <div class="bottomcircle"></div>
         <div class="topcircle"></div>
 
-        <a href="dashboared.html">
+        <a href="registrations.html">
           <img class="stafflow" src="../../image/icon.png" alt="Icon"
         /></a>
         <h1 id="StaffFlow" class="stafflow">StaffFlow</h1>
       </div>
 
       <nav id="side-nav">
+        <div class="box-hover"></div>
         <a href="dashboared.html">
           <i data-lucide="house"></i>
           <span>Home</span>
@@ -59,11 +61,22 @@
     <main>
       <p id="hello">Good Day Admin!</p>
       <p id="here">Here's what's happening today</p>
-      <div class="kahon"></div>
+      <div class="kahon">
+        <h2 class="header-registration">Registration Requests</h2>
+        <div class="label">
+          <p>Name</p>
+          <p>Requested Role</p>
+          <p>Date</p>
+          <p>Status</p>
+          <p>Actions</p>
+        </div>
+      </div>
       <h2>registration</h2>
+      <div class="registration-column"></div>
     </main>
     <script>
       lucide.createIcons();
     </script>
+    <script src="../../js/hover.js"></script>
   </body>
 </html>

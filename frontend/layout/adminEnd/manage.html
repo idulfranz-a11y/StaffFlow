@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../../css/format.css" />
     <link rel="stylesheet" href="../../css/adminFT.css" />
     <link rel="icon" href="../../image/icon.png" />
+    <link rel="stylesheet" href="../../css/hover.css" />
     <title>StaffFlow</title>
 
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -17,13 +18,14 @@
         <div class="bottomcircle"></div>
         <div class="topcircle"></div>
 
-        <a href="dashboared.html">
-          <img class="stafflow" src="../../image/icon.png" alt="Icon"
-        /></a>
+        <a href="manage.html">
+          <img class="stafflow" src="../../image/icon.png" alt="Icon" />
+        </a>
         <h1 id="StaffFlow" class="stafflow">StaffFlow</h1>
       </div>
 
       <nav id="side-nav">
+        <div class="box-hover"></div>
         <a href="dashboared.html">
           <i data-lucide="house"></i>
           <span>Home</span>
@@ -59,11 +61,20 @@
     <main>
       <p id="hello">Good Day Admin!</p>
       <p id="here">Here's what's happening today</p>
-      <div class="kahon"></div>
+      <div class="kahon">
+        <h2 class="header-registration">People & Access</h2>
+        <div id="account-status">
+          <p>User</p>
+          <p>Role</p>
+          <p>Status</p>
+          <p>Active</p>
+        </div>
+      </div>
       <h2>manage</h2>
     </main>
     <script>
       lucide.createIcons();
     </script>
+    <script src="../../js/hover.js"></script>
   </body>
 </html>

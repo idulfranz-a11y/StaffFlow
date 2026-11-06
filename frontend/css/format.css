@@ -1,3 +1,7 @@
+@view-transition {
+  navigation: auto;
+}
+
 body {
   margin: 0%;
   padding: 0%;
@@ -13,6 +17,7 @@ body {
   overflow: hidden;
   isolation: isolate;
 }
+
 .bottomcircle::before {
   content: "";
   position: absolute;
@@ -27,12 +32,12 @@ body {
 .bottomcircle::after {
   content: "";
   position: absolute;
-  width: 500px;
-  height: 500px;
+  width: 400px;
+  height: 400px;
   background-color: #183e36;
-  border-radius: 53%;
+  border-radius: 50%;
   top: 565px;
-  right: 55px;
+  right: 70px;
 
   z-index: -1;
 }
@@ -70,17 +75,7 @@ body {
   position: relative;
   top: 20%;
 }
-#side-nav a {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 
-  padding-left: 25px;
-  color: white;
-  text-decoration: none;
-  font-size: 23px;
-  font-family: "Inter", sans-serif;
-}
 #side-nav a svg {
   width: 24px;
   height: 24px;
@@ -117,7 +112,6 @@ body {
   height: 100px;
   width: 100%;
   background-color: #2d5e4e;
-
   overflow: hidden;
 }
 .greetings strong {
@@ -149,14 +143,14 @@ main {
   position: absolute;
   top: -22.3rem;
   left: -33.3rem;
-  font-size: 35px;
+  font-size: 40px;
   font-family: "Inter", sans-serif;
   font-weight: 600;
   color: #183e36;
 }
 #here {
   position: absolute;
-  font-size: 24px;
+  font-size: 27px;
   top: -19rem;
   left: -27.5%;
 }

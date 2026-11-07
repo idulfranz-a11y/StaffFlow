@@ -47,3 +47,10 @@
 #side-nav a:hover {
   transform: translateX(10px);
 }
+.link-sa-scatter {
+  transition: transform 0.4s ease;
+}
+.link-sa-scatter:hover {
+  transform: translateY(-5px);
+  background-color: #16a779;
+}

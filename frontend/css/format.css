@@ -18,6 +18,7 @@ body {
   isolation: isolate;
 }
 
+/*
 .bottomcircle::before {
   content: "";
   position: absolute;
@@ -62,8 +63,7 @@ body {
   top: -250px;
   left: 70px;
   z-index: -1;
-}
-
+}*/
 .stafflow {
   z-index: 3;
 }
@@ -151,6 +151,7 @@ main {
 #here {
   position: absolute;
   font-size: 27px;
-  top: -19rem;
+  top: -18.5rem;
   left: -27.5%;
+  font-family: "Inter", system-ui, sans-serif;
 }

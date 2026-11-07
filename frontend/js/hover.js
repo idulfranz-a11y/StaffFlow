@@ -75,5 +75,3 @@ window.addEventListener("resize", () => {
 });
 
 //basta kato mo move
-
-const a = document.getElementById();

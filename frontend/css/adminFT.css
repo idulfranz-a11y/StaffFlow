@@ -150,7 +150,7 @@
   font-size: 19px;
   font-family: "Inter", system-ui, sans-serif;
   color: #44544c;
-  width: 450px;
+  width: 500px;
 }
 .bigBox-description {
   position: relative;
@@ -159,6 +159,108 @@
   font-size: 19px;
   color: #44544c;
   font-family: "Inter", system-ui, sans-serif;
+}
+.worker-bar {
+  position: relative;
+  top: -8px;
+  left: 5%;
+  display: flex;
+  width: 90%;
+  height: 20px;
+  background-color: #e5eae7;
+  border-radius: 20px;
+  overflow: hidden;
+  gap: 3px;
+}
+
+.bar {
+  height: 100%;
+}
+
+.employees {
+  background-color: #16a779;
+}
+
+.managers {
+  background-color: #075c45;
+}
+
+.pending {
+  background-color: #e9a526;
+}
+
+.inactive {
+  background-color: #9ba9a2;
+}
+
+.account-breakdown {
+  position: relative;
+  left: 5%;
+  width: 90%;
+
+  margin-top: 22px;
+}
+
+/* Header */
+.breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #526e63;
+  border-bottom: 1px solid #dce5df;
+}
+.breakdown-header span {
+  font-family: "Inter", system-ui, sans-serif;
+}
+/* Each row */
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 0;
+  border-bottom: 1px solid #dce5df;
+
+  font-size: 14px;
+  color: #183e36;
+  font-family: Inter ", system-ui, sans-serif";
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+}
+
+.account-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* Colors */
+.employees-dot {
+  background-color: #16a779;
+}
+
+.managers-dot {
+  background-color: #075c45;
+}
+
+.pending-dot {
+  background-color: #e9a526;
+}
+
+.inactive-dot {
+  background-color: #9ba9a2;
 }
 /*Registration*/
 .kahon {
@@ -193,31 +295,42 @@
 .background {
   display: flex;
   justify-content: center;
-  height: 16%;
-  width: 14%;
+  height: 80%;
+  width: 15%;
   border-radius: 20px;
   background-color: #ddefe6;
   position: relative;
-  left: 35px;
+  top: 15%;
+  left: 5%;
 }
 #basta-icon {
   position: relative;
-  top: 10px;
+  top: 15%;
   color: #0e6b4a;
   width: 40px;
   height: 40px;
 }
+.link-sa-scatter {
+  position: relative;
+  left: 8%;
+  height: 20%;
+  width: 80%;
+  border: 2px solid rgba(33, 63, 54, 0.04);
+}
 #deactive {
   position: relative;
-  top: -21%;
+  top: -2.5rem;
   left: 24%;
   font-family: "Inter", system-ui, sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
+  text-decoration: none;
+  color: black;
+  margin: 0%;
 }
 #current {
   position: relative;
-  top: -24%;
+  top: -3.4rem;
   left: 24%;
   font-family: "Inter", system-ui, sans-serif;
 }

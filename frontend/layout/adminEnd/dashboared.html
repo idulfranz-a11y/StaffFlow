@@ -98,22 +98,72 @@
         <p class="bigBox-description">
           How accounts in your workspace distributed
         </p>
+        <div class="worker-bar">
+          <div class="bar employees"></div>
+          <div class="bar managers"></div>
+          <div class="bar pending"></div>
+          <div class="bar inactive"></div>
+        </div>
+
+        <div class="account-breakdown">
+          <div class="breakdown-header">
+            <span>ACCOUNT TYPE</span>
+            <span>SHARE OF 105 ACCOUNTS</span>
+          </div>
+
+          <div class="breakdown-row">
+            <div class="account-name">
+              <span class="dot employees-dot"></span>
+              <span>Employees</span>
+            </div>
+            <strong>90.5%</strong>
+          </div>
+
+          <div class="breakdown-row">
+            <div class="account-name">
+              <span class="dot managers-dot"></span>
+              <span>Managers</span>
+            </div>
+            <strong>3.8%</strong>
+          </div>
+
+          <div class="breakdown-row">
+            <div class="account-name">
+              <span class="dot pending-dot"></span>
+              <span>Pending</span>
+            </div>
+            <strong>5.7%</strong>
+          </div>
+
+          <div class="breakdown-row">
+            <div class="account-name">
+              <span class="dot inactive-dot"></span>
+              <span>Inactive</span>
+            </div>
+            <strong>0%</strong>
+          </div>
+        </div>
       </div>
       <div class="smolbox">
         <h1 class="quick">Quick Actions</h1>
         <p class="smol-box-description">
-          Search an account's status without leaving Home section.
+          Pick up right where you left off and continue working on your tasks
+          without losing your progress.
         </p>
-        <div class="background">
-          <i id="basta-icon" data-lucide="user-round-pen"></i>
+        <div class="link-sa-scatter">
+          <div class="background">
+            <i id="basta-icon" data-lucide="user-round-pen"></i>
+          </div>
+          <a href="manage.html" id="deactive">Deactive / Reactive Account</a>
+          <p id="current">Current Inactive Accounts</p>
         </div>
-        <p id="deactive">Deactive / Reactive Account</p>
-        <p id="current">Current Inactive Accounts</p>
       </div>
     </main>
     <script>
       lucide.createIcons();
     </script>
     <script src="../../js/hover.js"></script>
+
+    <script src="../../js/adminFT.js"></script>
   </body>
 </html>

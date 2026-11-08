@@ -273,15 +273,7 @@
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(18, 54, 43, 0.04);
 }
-.label {
-  position: relative;
-  top: 1rem;
-  display: flex;
-  justify-content: center;
-  gap: 13rem;
-  font-size: 24px;
-  color: gray;
-}
+
 .header-registration {
   /*<--share ra sila sa manage na header*/
   position: relative;
@@ -300,8 +292,8 @@
   border-radius: 20px;
   background-color: #ddefe6;
   position: relative;
-  top: 15%;
-  left: 5%;
+  top: 12%;
+  left: 7%;
 }
 #basta-icon {
   position: relative;
@@ -337,13 +329,26 @@
   font-family: "Inter", system-ui, sans-serif;
 }
 /*manage*/
-#account-status {
+.registration-table {
   position: relative;
-  left: 15rem;
-  top: 1rem;
-  display: flex;
-  justify-content: start;
-  gap: 18rem;
-  font-size: 24px;
-  color: gray;
+  top: 3%;
+  left: 7%;
+  width: 100%;
+  font-family: "Inter", system-ui, sans-serif;
+  color: #9ba9a2;
+  table-layout: fixed;
+}
+
+.registration-table th {
+  font-size: 20px;
+  text-align: left;
+}
+.name {
+  width: 20%;
+}
+.role {
+  width: 20%;
+}
+.status {
+  width: 30%;
 }

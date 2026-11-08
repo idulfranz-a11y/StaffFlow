@@ -23,7 +23,7 @@
         /></a>
         <h1 id="StaffFlow" class="stafflow">StaffFlow</h1>
       </div>
-
+      <label id="menu">Menu</label>
       <nav id="side-nav">
         <div class="box-hover"></div>
         <a href="manager.html">
@@ -63,23 +63,43 @@
       <p id="here">Here's what's happening today</p>
       <div class="boxes" id="boxes1">
         <p class="box-description">Overdue Task</p>
-        <i class="manager-icon" data-lucide="triangle-exclamation-point"></i>
+        <p class="task-value">2</p>
+        <p class="value-descreption">Past their due date</p>
+        <div class="icon-border-warning">
+          <i
+            class="manager-icon-warning"
+            data-lucide="triangle-exclamation-point"
+          ></i>
+        </div>
       </div>
       <div class="boxes" id="boxes2">
         <p class="box-description">Pending Task</p>
-        <i class="manager-icon" data-lucide="clock"></i>
+        <p class="task-value">6</p>
+        <p class="value-descreption">Still in progress</p>
+        <div class="icon-border-overdue">
+          <i class="manager-icon-clock" data-lucide="clock"></i>
+        </div>
       </div>
       <div class="boxes" id="boxes3">
         <p class="box-description">Task Done</p>
-        <i class="manager-icon" data-lucide="file-check"></i>
+        <p class="task-value">9</p>
+        <p class="value-descreption">Completed by your teamss</p>
+        <div class="icon-border">
+          <i class="manager-icon" data-lucide="file-check"></i>
+        </div>
       </div>
       <div class="boxes" id="boxes4">
         <p class="box-description">Total Task</p>
-        <i class="manager-icon" data-lucide="clipboard-list"></i>
+        <p class="task-value">0</p>
+        <p class="value-descreption">All tasks across your teams</p>
+        <div class="icon-border">
+          <i class="manager-icon" data-lucide="clipboard-list"></i>
+        </div>
       </div>
 
       <div class="vigvox">
         <h1 id="header-manager">Recent Teams</h1>
+        <h3 id="sunod-sa-header">The latest teams you've created or manage.</h3>
 
         <table class="manager-table">
           <thead>

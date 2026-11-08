@@ -15,15 +15,12 @@
   <body>
     <div id="sideBar">
       <div class="logo">
-        <div class="bottomcircle"></div>
-        <div class="topcircle"></div>
-
         <a href="registrations.html">
           <img class="stafflow" src="../../image/icon.png" alt="Icon"
         /></a>
         <h1 id="StaffFlow" class="stafflow">StaffFlow</h1>
       </div>
-
+      <label id="menu">Menu</label>
       <nav id="side-nav">
         <div class="box-hover"></div>
         <a href="dashboared.html">
@@ -54,7 +51,7 @@
     </div>
     <div class="topbar">
       <div class="greetings">
-        <strong>Resgestrations</strong>
+        <strong>Resgistrations</strong>
         <p>ADMIN WORKSPACE</p>
       </div>
     </div>
@@ -63,13 +60,16 @@
       <p id="here">Here's what's happening today</p>
       <div class="kahon">
         <h2 class="header-registration">Registration Requests</h2>
-        <div class="label">
-          <p>Name</p>
-          <p>Requested Role</p>
-          <p>Date</p>
-          <p>Status</p>
-          <p>Actions</p>
-        </div>
+        <table class="registration-table">
+          <thead>
+            <tr>
+              <th class="name">Name</th>
+              <th class="role">Requested Role</th>
+              <th class="status">Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+        </table>
       </div>
       <h2>registration</h2>
       <div class="registration-column"></div>

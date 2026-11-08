@@ -4,8 +4,6 @@
   width: 365px;
   background-color: white;
   border-radius: 30px;
-  border-left: 10px solid #2d5e4e;
-  border-top: 5px solid #2d5e4e;
 }
 #boxes1 {
   position: absolute;
@@ -30,37 +28,43 @@
 .vigvox {
   position: absolute;
   left: -32%;
-  top: 20px;
-  height: 27rem;
+  top: 25px;
+  height: 26rem;
   width: 80%;
   background-color: white;
   border-radius: 30px;
-  box-shadow: 0 0 30px rgb(0, 0, 0, 0.35);
 }
 #header-manager {
   position: relative;
   left: 40px;
-  font-family: "Segoe UI", sans-serif;
-  font-weight: 700;
-  font-size: 37px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 33px;
   color: #1c4b41;
 }
 .manager-icon {
-  position: relative;
-  top: 8px;
-  left: 30%;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 40px;
   color: #183e36;
+}
+.manager-icon-clock {
+  width: 70px;
+  height: 50px;
+  color: #8a5200;
+}
+.manager-icon-warning {
+  width: 70px;
+  height: 50px;
+  color: #a12d1c;
 }
 .box-description {
   position: relative;
   top: 5%;
-  left: 8%;
-  font-size: 26px;
-  color: #183e36;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bolder;
+  left: 10%;
+  font-size: 23px;
+  color: rgb(103, 100, 100);
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
 }
 .manager-table {
   border-spacing: 12rem 0;
@@ -68,4 +72,67 @@
 th {
   color: rgb(158, 152, 152);
   font-size: 22px;
+}
+.icon-border-overdue {
+  top: 8%;
+  left: 20%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 75px;
+  background-color: #fdf0d5;
+  border-radius: 20px;
+}
+.icon-border-warning {
+  top: 8%;
+  left: 25%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 75px;
+  height: 75px;
+  background-color: #fbe6e1;
+  border-radius: 20px;
+}
+.icon-border {
+  position: relative;
+  top: 8%;
+  left: 25%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75px;
+  height: 75px;
+  background-color: #ddefe6;
+  border-radius: 20px;
+}
+.task-value {
+  position: relative;
+  top: 12%;
+  left: -15%;
+  font-size: 60px;
+  font-weight: 700;
+  font-family: "Inter", system-ui, sans-serif;
+  color: #183e36;
+}
+.value-descreption {
+  position: absolute;
+  top: 70%;
+  left: 7%;
+  color: rgb(72, 70, 70);
+  font-size: 18px;
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+}
+#sunod-sa-header {
+  position: relative;
+  top: -5%;
+  left: 2.5%;
+  font-family: "Inter", system-ui, sans-serif;
+  color: rgb(72, 70, 70);
+  font-weight: 500;
 }

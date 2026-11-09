@@ -64,97 +64,103 @@
     <main>
       <p id="hello">Good Day Admin!</p>
       <p id="here">Here's what's happening today</p>
-      <div class="box" id="box1">
-        <p class="tag">Inactive Accounts</p>
-        <p class="value">0</p>
-        <div class="lucid-circle-inactive">
-          <i data-lucide="user-round-x" class="lucid-icon-inactive"></i>
+      <div class="box-container">
+        <div class="box" id="box1">
+          <p class="tag">Total Employee</p>
+          <p class="value">0</p>
+          <div class="lucid-circle">
+            <i data-lucide="users" class="lucid-icon"></i>
+          </div>
+        </div>
+        <div class="box" id="box2">
+          <p class="tag">Total Manager</p>
+          <p class="value">6</p>
+          <div class="lucid-circle">
+            <i data-lucide="user-round" class="lucid-icon"></i>
+          </div>
+        </div>
+        <div class="box" id="box3">
+          <p class="tag">Pending Accounts</p>
+          <p class="value">4</p>
+          <div class="lucid-circle-pending">
+            <i data-lucide="user-plus" class="lucid-icon-pending"></i>
+          </div>
+        </div>
+        <div class="box" id="box4">
+          <p class="tag">Inactive Accounts</p>
+          <p class="value">95</p>
+          <div class="lucid-circle-inactive">
+            <i data-lucide="user-round-x" class="lucid-icon-inactive"></i>
+          </div>
         </div>
       </div>
-      <div class="box" id="box2">
-        <p class="tag">Pending Accounts</p>
-        <p class="value">6</p>
-        <div class="lucid-circle-pending">
-          <i data-lucide="user-plus" class="lucid-icon-pending"></i>
-        </div>
-      </div>
-      <div class="box" id="box3">
-        <p class="tag">Total Manager</p>
-        <p class="value">4</p>
-        <div class="lucid-circle">
-          <i data-lucide="user-round" class="lucid-icon"></i>
-        </div>
-      </div>
-      <div class="box" id="box4">
-        <p class="tag">Total Employee</p>
-        <p class="value">95</p>
-        <div class="lucid-circle">
-          <i data-lucide="users" class="lucid-icon"></i>
-        </div>
-      </div>
-      <div class="bigBox">
-        <h1 id="overview">SYSTEM OVERVIEW</h1>
-        <p class="bigBox-description">
-          How accounts in your workspace distributed
-        </p>
-        <div class="worker-bar">
-          <div class="bar employees"></div>
-          <div class="bar managers"></div>
-          <div class="bar pending"></div>
-          <div class="bar inactive"></div>
-        </div>
-
-        <div class="account-breakdown">
-          <div class="breakdown-header">
-            <span>ACCOUNT TYPE</span>
-            <span>SHARE OF 105 ACCOUNTS</span>
+      <div class="bigbox-container">
+        <div class="bigBox">
+          <h1 id="overview">SYSTEM OVERVIEW</h1>
+          <p class="bigBox-description">
+            How accounts in your workspace distributed
+          </p>
+          <div class="worker-bar">
+            <div class="bar employees"></div>
+            <div class="bar managers"></div>
+            <div class="bar pending"></div>
+            <div class="bar inactive"></div>
           </div>
 
-          <div class="breakdown-row">
-            <div class="account-name">
-              <span class="dot employees-dot"></span>
-              <span>Employees</span>
+          <div class="account-breakdown">
+            <div class="breakdown-header">
+              <span>ACCOUNT TYPE</span>
+              <span>SHARE OF 105 ACCOUNTS</span>
             </div>
-            <strong>90.5%</strong>
-          </div>
 
-          <div class="breakdown-row">
-            <div class="account-name">
-              <span class="dot managers-dot"></span>
-              <span>Managers</span>
+            <div class="breakdown-row">
+              <div class="account-name">
+                <span class="dot employees-dot"></span>
+                <span>Employees</span>
+              </div>
+              <strong>90.5%</strong>
             </div>
-            <strong>3.8%</strong>
-          </div>
 
-          <div class="breakdown-row">
-            <div class="account-name">
-              <span class="dot pending-dot"></span>
-              <span>Pending</span>
+            <div class="breakdown-row">
+              <div class="account-name">
+                <span class="dot managers-dot"></span>
+                <span>Managers</span>
+              </div>
+              <strong>3.8%</strong>
             </div>
-            <strong>5.7%</strong>
-          </div>
 
-          <div class="breakdown-row">
-            <div class="account-name">
-              <span class="dot inactive-dot"></span>
-              <span>Inactive</span>
+            <div class="breakdown-row">
+              <div class="account-name">
+                <span class="dot pending-dot"></span>
+                <span>Pending</span>
+              </div>
+              <strong>5.7%</strong>
             </div>
-            <strong>0%</strong>
+
+            <div class="breakdown-row">
+              <div class="account-name">
+                <span class="dot inactive-dot"></span>
+                <span>Inactive</span>
+              </div>
+              <strong>0%</strong>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="smolbox">
-        <h1 class="quick">Quick Actions</h1>
-        <p class="smol-box-description">
-          Pick up right where you left off and continue working on your tasks
-          without losing your progress.
-        </p>
-        <div class="link-sa-scatter">
-          <div class="background">
-            <i id="basta-icon" data-lucide="user-round-pen"></i>
+        <div class="smolbox">
+          <h1 class="quick">Quick Actions</h1>
+          <p class="smol-box-description">
+            Pick up right where you left off and continue working on your tasks
+            without losing your progress.
+          </p>
+          <div class="link-sa-scatter">
+            <div class="background">
+              <i id="basta-icon" data-lucide="user-round-pen"></i>
+            </div>
+            <a href="manage.html" id="deactive"
+              >Deactivate / Reactive Account</a
+            >
+            <p id="current">Current Inactive Accounts</p>
           </div>
-          <a href="manage.html" id="deactive">Deactivate / Reactive Account</a>
-          <p id="current">Current Inactive Accounts</p>
         </div>
       </div>
     </main>

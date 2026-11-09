@@ -1,36 +1,25 @@
+.mainbox {
+  display: flex;
+  flex-direction: row;
+  margin-top: 4.5rem;
+  gap: 15px;
+  margin-left: 70px;
+}
+
 .boxes {
+  position: relative;
   display: flex;
   height: 210px;
   width: 365px;
   background-color: white;
   border-radius: 30px;
 }
-#boxes1 {
-  position: absolute;
-  top: -220px;
-  left: 28%;
-}
-#boxes2 {
-  position: absolute;
-  top: -220px;
-  left: 8%;
-}
-#boxes3 {
-  position: absolute;
-  top: -220px;
-  left: -12%;
-}
-#boxes4 {
-  position: absolute;
-  top: -220px;
-  left: -32%;
-}
+
 .vigvox {
-  position: absolute;
-  left: -32%;
-  top: 25px;
-  height: 26rem;
-  width: 80%;
+  padding-top: 0px;
+  margin-left: 70px;
+  height: 29rem;
+  width: 92%;
   background-color: white;
   border-radius: 30px;
 }
@@ -48,6 +37,7 @@
   color: #183e36;
 }
 .manager-icon-clock {
+  position: absolute;
   width: 70px;
   height: 50px;
   color: #8a5200;
@@ -74,9 +64,9 @@ th {
   font-size: 22px;
 }
 .icon-border-overdue {
-  top: 8%;
-  left: 20%;
-  position: relative;
+  position: absolute;
+  right: 10%;
+  top: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,9 +76,9 @@ th {
   border-radius: 20px;
 }
 .icon-border-warning {
-  top: 8%;
-  left: 25%;
-  position: relative;
+  position: absolute;
+  right: 10%;
+  top: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -99,9 +89,9 @@ th {
   border-radius: 20px;
 }
 .icon-border {
-  position: relative;
-  top: 8%;
-  left: 25%;
+  position: absolute;
+  right: 10%;
+  top: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,9 +101,9 @@ th {
   border-radius: 20px;
 }
 .task-value {
-  position: relative;
-  top: 12%;
-  left: -15%;
+  position: absolute;
+  bottom: -9%;
+  left: 10%;
   font-size: 60px;
   font-weight: 700;
   font-family: "Inter", system-ui, sans-serif;
@@ -121,8 +111,8 @@ th {
 }
 .value-descreption {
   position: absolute;
-  top: 70%;
-  left: 7%;
+  bottom: 0%;
+  left: 5%;
   color: rgb(72, 70, 70);
   font-size: 18px;
   font-family: "Inter", system-ui, sans-serif;
@@ -135,4 +125,90 @@ th {
   font-family: "Inter", system-ui, sans-serif;
   color: rgb(72, 70, 70);
   font-weight: 500;
+}
+main {
+  width: 100%;
+  height: 100%;
+  background-color: #d8e2da;
+}
+
+/*my team na ari atay mani*/
+.main-myteam {
+  display: flex;
+  justify-content: center;
+}
+.boxteam {
+  display: flex;
+  margin-top: 5%;
+
+  height: 10rem;
+  width: 80%;
+  background-color: white;
+  border-radius: 20px;
+  gap: 60px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+.boxteam h2 {
+  position: relative;
+  color: #1c4b41;
+  font-size: 29px;
+  padding-left: 140px;
+  margin-top: -80px;
+}
+.boxteam p {
+  padding-left: 140px;
+  margin-top: -5%;
+  width: 320px;
+}
+.iconborder {
+  margin-left: 30px;
+  margin-top: 50px;
+  margin-right: 0%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  height: 40%;
+  background-color: #ddefe6;
+  border-radius: 20px;
+}
+#key {
+  color: #1c4b41;
+  width: 50px;
+  height: 50px;
+}
+.generate-input input {
+  position: relative;
+  margin-top: 1%;
+
+  height: 40px;
+  width: 300px;
+  border-radius: 10px;
+  border: 2px solid #b9c8be;
+  box-shadow: 0 0 20px rgba(18, 54, 43, 0.04);
+}
+.generate-input button {
+  color: white;
+  background-color: #1c4b41;
+  border: none;
+  height: 45px;
+  width: 300px;
+  border-radius: 10px;
+  margin-left: 10px;
+  transition: transform 0.15s ease;
+}
+.generate-input button:hover {
+  background-color: #0e6b4a;
+}
+.generate-input button:active {
+  transform: scale(0.94);
+}
+.generate-input label {
+  display: flex;
+  margin-top: 4.5%;
+  margin-bottom: 0%;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  color: #183e36;
 }

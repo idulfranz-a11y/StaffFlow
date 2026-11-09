@@ -1,334 +1,201 @@
-/* =========================================
-   STAFFFLOW - RESPONSIVE DASHBOARD
-   ========================================= */
+/* ============================================
+   mqA.css – Admin dashboard responsive styles
+   ============================================ */
 
-/* ---------- GLOBAL SAFETY ---------- */
-
-* {
-  box-sizing: border-box;
-}
-
-img,
-svg {
-  max-width: 100%;
-}
-
-.box,
-.bigBox,
-.smolbox,
-.kahon {
-  min-width: 0;
-}
-
-/* ---------- DASHBOARD CARDS ---------- */
-
-/* Find the parent containing all four cards */
-*:has(> #box1):has(> #box2):has(> #box3):has(> #box4) {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 20px;
-}
-
-.box {
-  position: relative;
-  top: auto;
-  left: auto;
-  width: 100%;
-  min-width: 0;
-  height: 190px;
-}
-
-/* Remove old absolute positioning */
-#box1,
-#box2,
-#box3,
-#box4 {
-  position: relative;
-  top: auto;
-  left: auto;
-}
-
-/* ---------- MAIN DASHBOARD PANELS ---------- */
-
-/* Find the parent containing both panels */
-*:has(> .bigBox):has(> .smolbox) {
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  gap: 24px;
-  align-items: stretch;
-}
-
-.bigBox,
-.smolbox {
-  position: relative;
-  top: auto;
-  left: auto;
-  width: 100%;
-  min-width: 0;
-  height: 410px;
-}
-
-.smol-box-description {
-  width: 90%;
-  max-width: 100%;
-}
-
-/* ---------- CARD CONTENT ---------- */
-
-.lucid-circle,
-.lucid-circle-pending,
-.lucid-circle-inactive {
-  flex-shrink: 0;
-  max-width: 75px;
-}
-
-.value {
-  max-width: 100%;
-  font-size: clamp(32px, 4vw, 60px);
-}
-
-.tag {
-  font-size: clamp(15px, 1.5vw, 22px);
-}
-
-#overview,
-.quick {
-  max-width: 95%;
-  font-size: clamp(21px, 2.2vw, 30px);
-}
-
-/* ---------- ACCOUNT BREAKDOWN ---------- */
-
-.account-breakdown {
-  width: 90%;
-  max-width: 100%;
-}
-
-.breakdown-header,
-.breakdown-row {
-  gap: 10px;
-}
-
-.breakdown-header span,
-.breakdown-row > * {
-  min-width: 0;
-}
-
-/* ---------- REGISTRATION ---------- */
-
-.kahon {
-  position: relative;
-  top: auto;
-  left: auto;
-  width: 77%;
-  max-width: 100%;
-  height: auto;
-  min-height: 42rem;
-  padding: 25px;
-  margin: 20px auto;
-}
-
-.header-registration {
-  position: relative;
-  top: auto;
-  left: auto;
-  font-size: clamp(22px, 2.5vw, 29px);
-}
-
-/* ---------- DEACTIVATE ACCOUNT LINK ---------- */
-
-.link-sa-scatter {
-  position: relative;
-  left: auto;
-  width: 84%;
-  min-height: 110px;
-  height: auto;
-  margin: 20px auto;
-  padding: 12px;
-  display: grid;
-  grid-template-columns: 75px minmax(0, 1fr);
-  grid-template-rows: auto auto;
-  align-items: center;
-  column-gap: 15px;
-}
-
-.background {
-  position: static;
-  width: 75px;
-  height: 75px;
-  grid-row: 1 / 3;
-  align-items: center;
-}
-
-#basta-icon {
-  position: static;
-  width: 35px;
-  height: 35px;
-}
-
-#deactive,
-#current {
-  position: static;
-  margin: 0;
-  min-width: 0;
-}
-
-#deactive {
-  font-size: clamp(15px, 1.6vw, 22px);
-}
-
-#current {
-  font-size: 14px;
-}
-
-/* ---------- REGISTRATION TABLE ---------- */
-
-.registration-table {
-  position: relative;
-  top: auto;
-  left: auto;
-  width: 100%;
-  min-width: 600px;
-}
-
-.registration-table th {
-  font-size: clamp(14px, 1.5vw, 20px);
-}
-
-/* =========================================
-   LAPTOP / SMALL DESKTOP
-   ========================================= */
-
-@media screen and (max-width: 1199px) {
-  *:has(> #box1):has(> #box2):has(> #box3):has(> #box4) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/* ---------- ≤1600px: switch from absolute to fluid ---------- */
+@media (max-width: 1600px) {
+  /* Stat cards */
+  .dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
   }
 
-  *:has(> .bigBox):has(> .smolbox) {
-    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-  }
-
-  .box {
-    height: 180px;
-  }
-
-  .kahon {
-    width: 90%;
-  }
-}
-
-/* =========================================
-   TABLET
-   ========================================= */
-
-@media screen and (max-width: 768px) {
-  *:has(> #box1):has(> #box2):has(> #box3):has(> #box4) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 15px;
-  }
-
-  *:has(> .bigBox):has(> .smolbox) {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .bigBox,
-  .smolbox {
+  .box,
+  #box1,
+  #box2,
+  #box3,
+  #box4 {
+    position: static;
+    width: auto;
     height: auto;
-    min-height: 350px;
+    min-height: 150px;
+    box-sizing: border-box;
+    padding: 22px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "tag   icon"
+      "value icon";
+    align-items: start;
+    gap: 8px 12px;
   }
 
-  .box {
-    height: 165px;
+  .tag {
+    grid-area: tag;
+    position: static;
+    margin: 0;
+    font-size: 16px;
   }
 
-  .kahon {
-    width: 95%;
-    padding: 20px;
+  .value {
+    grid-area: value;
+    align-self: end;
+    position: static;
+    margin: 0;
+    font-size: 44px;
+    line-height: 1;
   }
 
-  .registration-table {
-    display: block;
-    overflow-x: auto;
-    white-space: nowrap;
+  .lucid-circle,
+  .lucid-circle-pending,
+  .lucid-circle-inactive {
+    grid-area: icon;
+    position: static;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
   }
 
-  .link-sa-scatter {
-    width: 95%;
-  }
-}
-
-/* =========================================
-   MOBILE
-   ========================================= */
-
-@media screen and (max-width: 480px) {
-  *:has(> #box1):has(> #box2):has(> #box3):has(> #box4) {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 12px;
-  }
-
-  .box {
-    height: 145px;
-  }
-
-  .bigBox,
-  .smolbox {
-    min-height: 300px;
-    padding: 15px;
-  }
-
-  .kahon {
-    width: 100%;
-    min-height: 0;
-    padding: 15px;
-    border-radius: 20px;
-  }
-
-  .header-registration {
-    font-size: 21px;
-  }
-
-  .link-sa-scatter {
-    width: 100%;
-    grid-template-columns: 55px minmax(0, 1fr);
-    column-gap: 10px;
-    padding: 10px;
-  }
-
-  .background {
-    width: 55px;
-    height: 55px;
-  }
-
-  #basta-icon {
+  .lucid-icon,
+  .lucid-icon-pending,
+  .lucid-icon-inactive {
     width: 28px;
     height: 28px;
   }
 
+  /* Panels */
+  .dashboard-panels {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 20px;
+    align-items: stretch;
+  }
+
+  .bigBox,
+  .smolbox {
+    position: static;
+    width: auto;
+    height: auto;
+    box-sizing: border-box;
+    padding: 24px 0 32px;
+  }
+
+  .smol-box-description {
+    width: auto;
+    max-width: 84%;
+    font-size: 16px;
+  }
+
+  .bigBox-description {
+    font-size: 16px;
+  }
+
+  /* Quick action tile */
+  .link-sa-scatter {
+    position: relative;
+    left: 8%;
+    width: 84%;
+    height: auto;
+    box-sizing: border-box;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "icon title"
+      "icon sub";
+    column-gap: 16px;
+    align-items: center;
+  }
+
+  .background {
+    grid-area: icon;
+    position: static;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+  }
+
+  #basta-icon {
+    position: static;
+  }
+
   #deactive {
-    font-size: 14px;
+    grid-area: title;
+    position: static;
+    font-size: 18px;
   }
 
   #current {
-    font-size: 12px;
+    grid-area: sub;
+    position: static;
+    margin: 0;
+    font-size: 14px;
+  }
+}
+
+/* ---------- ≤1024px: tablet ---------- */
+@media (max-width: 1024px) {
+  .dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-panels {
+    grid-template-columns: 1fr;
+  }
+
+  #overview,
+  .quick {
+    font-size: 26px;
+  }
+}
+
+/* ---------- ≤768px: large phone ---------- */
+@media (max-width: 768px) {
+  .value {
+    font-size: 38px;
+  }
+
+  .lucid-circle,
+  .lucid-circle-pending,
+  .lucid-circle-inactive {
+    width: 48px;
+    height: 48px;
   }
 
   .breakdown-header {
-    font-size: 10px;
-    letter-spacing: 0;
+    font-size: 11px;
+  }
+}
+
+/* ---------- ≤480px: small phone ---------- */
+@media (max-width: 480px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
-  .breakdown-row {
-    font-size: 12px;
+  .box,
+  #box1,
+  #box2,
+  #box3,
+  #box4 {
+    min-height: 120px;
+    padding: 18px;
   }
 
-  .account-breakdown {
-    width: 100%;
-    left: auto;
+  #overview,
+  .quick {
+    font-size: 22px;
   }
 
-  .worker-bar {
-    width: 100%;
-    left: auto;
+  .bigBox-description,
+  .smol-box-description {
+    font-size: 14px;
+  }
+
+  #deactive {
+    font-size: 16px;
   }
 }

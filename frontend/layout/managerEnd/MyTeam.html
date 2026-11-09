@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/format.css" />
     <link rel="stylesheet" href="../../css/hover.css" />
+    <link rel="stylesheet" href="../../css/managerFT.css" />
     <link rel="icon" href="../../image/icon.png" />
     <title>StaffFlow</title>
 
@@ -57,10 +58,23 @@
         <p>EMPLOYEE WORKSPACE</p>
       </div>
     </div>
-    <main>
-      <p id="hello">Good Day Employee!</p>
-      <p id="here">Here's what's happening today</p>
-      <h2>reference</h2>
+    <main class="main-myteam">
+      <div class="boxteam">
+        <div class="info-generate">
+          <div class="iconborder">
+            <i id="key" data-lucide="key"></i>
+          </div>
+          <h2>Generate Team Code</h2>
+          <p>
+            Create a team and share its unique access code so members can join!
+          </p>
+        </div>
+        <div class="generate-input">
+          <label id="teamlabel" for="code">Team name</label>
+          <input type="text" id="code" />
+          <button>Generate Code</button>
+        </div>
+      </div>
     </main>
     <script>
       lucide.createIcons();

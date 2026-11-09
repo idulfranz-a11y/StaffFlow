@@ -1,76 +1,84 @@
 /* Dashboard CCS*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
-.box {
+.box-container {
+  position: relative;
   display: flex;
+  flex-direction: row;
+  margin-top: 7%;
+  gap: 15px;
+  margin-left: 100px;
+}
+.bigbox-container {
+  display: flex;
+  margin-left: 5.8%;
+  margin-top: 2%;
+  margin-bottom: 0%;
+  gap: 40px;
+}
+.box {
+  position: relative;
+  display: flex;
+
   height: 190px;
   width: 365px;
   background-color: white;
   border-radius: 20px;
   box-shadow: 0 0 20px rgba(18, 54, 43, 0.04);
 }
-#box1 {
+#hello {
   position: absolute;
-  top: -205px;
-  left: 28%;
+  left: 20%;
+  top: 8%;
+  font-size: 40px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  color: #183e36;
 }
-#box2 {
+#here {
   position: absolute;
-  top: -205px;
-  left: 8%;
+  left: 20%;
+  top: 14%;
+  font-size: 27px;
+  font-family: "Inter", system-ui, sans-serif;
 }
-#box3 {
-  position: absolute;
-  top: -205px;
-  left: -12%;
-}
-#box4 {
-  position: absolute;
-  top: -205px;
-  left: -32%;
-}
+
 .bigBox {
-  position: absolute;
-  top: 35px;
-  left: -32%;
   background-color: white;
   height: 410px;
-  width: 50%;
+  width: 60%;
   border-radius: 30px;
 }
 .smolbox {
-  position: absolute;
-  top: 35px;
-  left: 20%;
   background-color: #ffffff;
   height: 410px;
-  width: 28%;
+  width: 36%;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(18, 54, 43, 0.04);
 }
 .lucid-icon {
-  position: relative;
+  position: absolute;
   width: 70px;
   height: 40px;
   color: #0e6b4a;
 }
 .lucid-icon-inactive {
-  position: relative;
+  position: absolute;
   width: 70px;
   height: 40px;
   color: #44544c;
 }
 
 .lucid-icon-pending {
-  position: relative;
+  position: absolute;
   width: 70px;
   height: 40px;
   color: #8a5200;
 }
 .lucid-circle {
-  position: relative;
-  top: 12%;
-  left: 10%;
+  position: absolute;
+  top: 5%;
+  left: 75%;
   width: 75px;
   height: 75px;
   background-color: #ddefe6;
@@ -79,12 +87,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0;
 }
 .lucid-circle-pending {
-  position: relative;
-  top: 12%;
-  left: 10%;
+  position: absolute;
+  top: 5%;
+  left: 75%;
   width: 75px;
   height: 75px;
   background-color: #fdf0d5;
@@ -96,9 +103,9 @@
   flex-shrink: 0;
 }
 .lucid-circle-inactive {
-  position: relative;
-  top: 12%;
-  left: 10%;
+  position: absolute;
+  top: 5%;
+  left: 75%;
   width: 75px;
   height: 75px;
   background-color: #e8ecea;
@@ -118,9 +125,9 @@
   font-family: "Inter", system-ui, sans-serif;
 }
 .value {
-  position: relative;
-  top: 23%;
-  left: -32%;
+  position: absolute;
+  top: 20%;
+  left: 10%;
   font-size: 60px;
   font-weight: 700;
   font-family: "Inter", system-ui, sans-serif;

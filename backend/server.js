@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const authRoutes = require("./routes/authRoutes");
+const teamsRoutes = require("./routes/teamsRoutes");
 
 const app = express();
 const PORT = 3000;
@@ -8,8 +9,9 @@ const PORT = 3000;
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "../frontend")));
-app.use("/api", authRoutes);
 
+app.use("/api", authRoutes);
+app.use("/api/teams", teamsRoutes);
 // Home page
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/LogIn.html"));

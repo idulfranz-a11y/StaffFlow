@@ -103,21 +103,27 @@
         <h1 id="header-manager">Recent Teams</h1>
         <h3 id="sunod-sa-header">The latest teams you've created or manage.</h3>
 
-        <table class="manager-table">
-          <thead>
-            <tr>
-              <th>Team ID</th>
-              <th>Team Name</th>
-              <th>Members</th>
-              <th>Date Created</th>
-            </tr>
-          </thead>
-        </table>
+        <ul id="recent-team-list" class="recent-team-list"></ul>
+
+        <template id="recent-team-template">
+          <li class="recent-team-card">
+            <div class="recent-team-info">
+              <strong class="recent-team-name"></strong>
+              <p>
+                Access code: <code class="recent-team-code"></code> ·
+                <span class="recent-team-members"></span>
+              </p>
+            </div>
+
+            <a class="recent-team-details" href="#">View details</a>
+          </li>
+        </template>
       </div>
     </main>
     <script>
       lucide.createIcons();
     </script>
     <script src="../../js/hover.js"></script>
+    <script src="../../js/manager.js"></script>
   </body>
 </html>

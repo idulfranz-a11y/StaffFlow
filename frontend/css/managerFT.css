@@ -128,8 +128,10 @@ th {
 }
 main {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
+  height: auto;
   background-color: #d8e2da;
+  box-sizing: border-box;
 }
 
 /*my team na ari atay mani*/
@@ -178,7 +180,7 @@ main {
 .generate-input input {
   position: relative;
   margin-top: 1%;
-
+  padding-left: 10px;
   height: 40px;
   width: 300px;
   font-size: 19px;
@@ -224,8 +226,59 @@ main {
 .myteam-header p {
   font-family: "Inter", system-ui, sans-serif;
   font-size: 24px;
-  color: rgb(149, 144, 144);
+  font-weight: 600;
 }
+.recent-team-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+
+  flex-direction: column;
+  gap: 9px;
+  margin-top: -2%;
+  margin-left: 5%;
+}
+
+.recent-team-card {
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border: 1px solid #dce5df;
+  border-radius: 12px;
+  background: #eaf5ee;
+  border: 1px solid #cfe6da;
+  width: 90%;
+}
+
+.recent-team-info p {
+  margin-top: 6px;
+  color: #4f6b5f;
+  font-size: 16px;
+}
+
+.recent-team-name {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 29px;
+  color: #12362b;
+}
+
+.recent-team-details {
+  padding-top: 5px;
+  text-align: center;
+  color: white;
+  font-family: "Inter", system-ui, sans-serif;
+  text-decoration: none;
+  font-weight: 600;
+  height: 40px;
+  width: 170px;
+  background-color: #0b7a54;
+  border-radius: 10px;
+}
+
 /* basta team*/
 #team-list {
   display: flex;
@@ -233,6 +286,7 @@ main {
   align-items: center;
   padding: 0;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .team-card {
@@ -240,14 +294,15 @@ main {
   display: flex;
   justify-content: center;
   list-style: none;
+  box-sizing: border-box;
 }
 
 .template-box {
   height: 110px;
   width: 80%;
   background-color: white;
-  border: 1px solid rgb(149, 144, 144);
-  border-radius: 10px;
+  border: 2px solid #9fb5a8;
+  border-radius: 17px;
   font-family: "Inter", system-ui, sans-serif;
 
   display: flex;
@@ -285,7 +340,7 @@ main {
   transition: transform 0.3s ease;
 }
 .btn-copy:hover {
-  transform: scale(0.96);
+  transform: scale(0.9);
 }
 .btn-delete {
   border: 1px solid #f5c1b3;
@@ -300,7 +355,7 @@ main {
 }
 
 .btn-delete:hover {
-  transform: scale(0.96);
+  transform: scale(0.9);
 }
 .btn-details {
   justify-content: center;
@@ -315,5 +370,227 @@ main {
   transition: transform 0.3s ease;
 }
 .btn-details:hover {
-  transform: scale(0.96);
+  transform: scale(0.9);
+}
+
+.main-myteam {
+  background:
+    linear-gradient(rgba(242, 246, 243, 0.82), rgba(242, 246, 243, 0.82)),
+    url("../image/tungtungtungoffice.jpg");
+  background-position: center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 25px 0 40px;
+  font-family: "Inter", sans-serif;
+}
+
+.pagination button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #9fb5a8;
+  border-radius: 10px;
+
+  background-color: white;
+  color: #183e36;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #ddefe6;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#page-indicator {
+  font-size: 16px;
+  font-weight: 600;
+  color: #183e36;
+}
+.team-card {
+  animation: cardAppear 0.9s ease;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Delete Confirmation Modal ---------- */
+
+.delete-modal {
+  width: 380px;
+  max-width: 90%;
+  padding: 0;
+  border: 1px solid #dce5df;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.delete-modal::backdrop {
+  background: rgba(15, 35, 28, 0.45);
+  backdrop-filter: blur(3px);
+}
+
+.delete-content {
+  padding: 30px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.delete-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 15px;
+
+  border-radius: 50%;
+  background: #fce8e8;
+  color: #c0392b;
+}
+
+.delete-content h3 {
+  margin-bottom: 10px;
+  color: #183e36;
+}
+
+.delete-content p {
+  color: #718078;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.delete-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.delete-actions button {
+  padding: 10px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+#cancel-delete {
+  border: 1px solid #9fb5a8;
+  background: white;
+  color: #183e36;
+}
+
+#confirm-delete {
+  border: 1px solid #c0392b;
+  background: #c0392b;
+  color: white;
+}
+
+#cancel-delete:hover {
+  background: #edf4ee;
+}
+
+#confirm-delete:hover {
+  background: #a93226;
+}
+/* ---------- Copy Success Modal ---------- */
+
+.copy-modal {
+  width: 380px;
+  max-width: 90%;
+  padding: 0;
+  border: 1px solid #dce5df;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.copy-modal::backdrop {
+  background: rgba(15, 35, 28, 0.45);
+  backdrop-filter: blur(3px);
+}
+
+.copy-content {
+  padding: 30px;
+  text-align: center;
+  font-family: "Inter", sans-serif;
+}
+
+.success-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 55px;
+  height: 55px;
+  margin: 0 auto 15px;
+
+  border-radius: 50%;
+  background: #e4f3e8;
+  color: #2d7a46;
+}
+
+.success-icon i {
+  width: 28px;
+  height: 28px;
+}
+
+.copy-content h3 {
+  margin-bottom: 10px;
+  color: #183e36;
+}
+
+.copy-content p {
+  color: #718078;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+#okay-copy {
+  width: 100%;
+  margin-top: 20px;
+  padding: 11px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #183e36;
+  color: white;
+
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+#okay-copy:hover {
+  background: #2d5e4e;
 }

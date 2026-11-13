@@ -70,15 +70,51 @@
           </p>
         </div>
         <div class="generate-input">
-          <label id="teamlabel" for="code">Team name</label>
-          <input type="text" id="code" />
-          <button>Generate Code</button>
+          <label id="teamlabel" for="team-name">Team name</label>
+
+          <input
+            type="text"
+            id="team-name"
+            placeholder="e.g. Operation Team"
+            maxlength="30"
+          />
+
+          <button type="button" id="generate-btn">Generate Code</button>
         </div>
       </div>
+      <div class="myteam-header">
+        <h1>Teams Created By You</h1>
+        <p>Team</p>
+      </div>
+
+      <ul id="team-list" class="team-list"></ul>
+      <template id="team-template">
+        <li class="team-card">
+          <div class="template-box">
+            <div class="team-info">
+              <strong class="team-name"></strong>
+              <p class="team-meta">
+                Access code: <code class="team-code"></code> ·
+                <span class="team-members"></span>
+              </p>
+            </div>
+
+            <div class="team-actions">
+              <button type="button" class="btn-copy">Copy code</button>
+              <button type="button" class="btn-delete">
+                <i data-lucide="trash-2"></i>
+              </button>
+              <a class="btn-details" href="#">Team details</a>
+            </div>
+          </div>
+        </li>
+      </template>
     </main>
     <script>
       lucide.createIcons();
     </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="../../js/hover.js"></script>
+    <script src="../../js/manager.js"></script>
   </body>
 </html>

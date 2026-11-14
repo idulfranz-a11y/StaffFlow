@@ -78,8 +78,10 @@ body {
 /* topbar content starts here*/
 .topbar {
   grid-area: topbar;
+  display: flex;
   background-color: #2d5e4e;
   overflow: hidden;
+  gap: 40%;
 }
 .greetings strong {
   position: relative;
@@ -96,6 +98,78 @@ body {
   font-family: "Inter", sans-serif;
   left: 142px;
   color: #edf4ee;
+}
+.right-side-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.right-side-section input {
+  height: 45px;
+  width: 390px;
+  border-radius: 20px;
+  border: rgba(255, 255, 255, 0.28);
+  padding-left: 5%;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: white;
+}
+.right-side-section input::placeholder {
+  color: rgb(207, 227, 217);
+}
+.right-side-section input:focus {
+  background: rgba(255, 255, 255, 0.2); /* a bit lighter */
+  border-color: #ffffff; /* solid white edge */
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+  outline: none;
+}
+.search-top {
+  position: absolute;
+  left: 84%;
+  width: 30px;
+  height: 30px;
+  color: #183e36;
+  flex-shrink: 0;
+}
+.account-section-topbar {
+  font-family: "Inter", system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+
+  height: 60px;
+  width: 230px;
+  background-color: white;
+  border-radius: 80px;
+}
+.circle-sa-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  background-color: #8fb5a4;
+  border-radius: 50%;
+  margin-top: 2%;
+  margin-left: -12%;
+  margin-right: 5%;
+}
+.account-section-topbar svg {
+  width: 30px;
+  height: 30px;
+}
+.account-role {
+  margin-top: -20%;
+}
+.Employename {
+  margin-top: 9%;
+}
+.notif-btn {
+  height: 60px;
+  width: 60px;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: rgba(255, 255, 255, 0.28);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 /*main*/

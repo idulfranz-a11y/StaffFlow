@@ -267,18 +267,27 @@ main {
 }
 
 .recent-team-details {
-  padding-top: 5px;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   color: white;
   font-family: "Inter", system-ui, sans-serif;
   text-decoration: none;
   font-weight: 600;
   height: 40px;
   width: 170px;
-  background-color: #0b7a54;
+  background-color: #0a5037;
   border-radius: 10px;
+  gap: 15px;
+  transition: transform 0.5s ease;
 }
-
+.recent-team-details:hover {
+  background-color: #0b7a54;
+}
+.recent-team-details:active {
+  transform: scale(0.95);
+}
 /* basta team*/
 #team-list {
   display: flex;
@@ -593,4 +602,52 @@ main {
 
 #okay-copy:hover {
   background: #2d5e4e;
+}
+/* start sa my task na css */
+
+.main-box-myTask {
+  margin-left: 5%;
+  margin-top: 5%;
+  width: 90%;
+  height: 42rem;
+  background-color: white;
+  border-radius: 20px;
+  border: 1px solid rgba(242, 246, 243, 0.82);
+}
+.mytask-box-top {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 2%;
+}
+.mytask-box-top h2 {
+  margin-top: 0%;
+  margin-left: 5%;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 32px;
+  color: #12362b;
+}
+.mytask-box-top input {
+  margin-left: 40%;
+  width: 290px;
+  height: 45px;
+  border-radius: 12px;
+  border: 2px solid #6f9a88;
+  padding-left: 15px;
+}
+.mytask-box-top input ::placeholder {
+  color: #5f7a6e;
+}
+.mytask-box-top input:focus {
+  border: 2px solid #0b7a54;
+  outline: none;
+}
+.mytask-box-top button {
+  height: 45px;
+  width: 120px;
+  border-radius: 10px;
+  background-color: #0b7a54;
+  border: none;
+  color: white;
+  font-size: 16px;
 }

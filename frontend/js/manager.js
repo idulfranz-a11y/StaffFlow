@@ -320,3 +320,18 @@ if (recentTeamList && recentTeamTemplate) {
     lucide.createIcons();
   }
 }
+
+const taskDialog = document.getElementById("task-dialog");
+const closeTask = document.getElementById("close-task");
+const openDialog = document.getElementById("new-task");
+
+openDialog.addEventListener("click", () => {
+  taskDialog.showModal();
+});
+
+// Close using X button
+closeTask.addEventListener("click", () => {
+  taskDialog.close();
+});
+
+// Close when clicking outside

@@ -63,13 +63,76 @@
         <div class="mytask-box-top">
           <h2>Task Management</h2>
           <input type="search" placeholder="Search" />
-          <button>+ New Task</button>
+          <button id="new-task">+ New Task</button>
         </div>
       </div>
+
+      <dialog id="task-dialog" class="task-dialog">
+        <div class="header-sa-dialog">
+          <div class="border-icon-dialog">
+            <i data-lucide="clipboard-check"></i>
+          </div>
+
+          <h1>Create Task</h1>
+          <button type="button" id="close-task" class="close-task">
+            &times;
+          </button>
+        </div>
+        <div class="fill-up-area">
+          <div class="task-title">
+            <label for="title">Task Title</label>
+            <input
+              type="text"
+              id="title"
+              placeholder="e.g. Prepare weekly report"
+            />
+          </div>
+
+          <div class="description-box-mytask">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Add details so your team knows what to do"
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="assigning-area">
+          <div class="task-field">
+            <label for="team">Team</label>
+            <select id="team" name="team">
+              <option value="">Select Team</option>
+            </select>
+          </div>
+
+          <div class="task-field">
+            <label for="assignee">Select Team Member</label>
+            <select id="assignee" name="assignee">
+              <option value="">Select Member</option>
+            </select>
+          </div>
+
+          <div class="task-field">
+            <label for="priority">Priority</label>
+            <select name="priority" id="priority">
+              <option value="low">Low</option>
+              <option value="medium" selected>Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
+
+          <div class="task-field">
+            <label for="deadline">Due Date</label>
+            <input type="date" id="deadline" name="deadline" required />
+          </div>
+        </div>
+      </dialog>
     </main>
     <script>
       lucide.createIcons();
     </script>
+    <script src="../../js/manager.js"></script>
     <script src="../../js/hover.js"></script>
   </body>
 </html>

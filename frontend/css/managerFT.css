@@ -650,14 +650,19 @@ main {
   border: none;
   color: white;
   font-size: 16px;
+  transition: transform 0.2s ease;
+}
+.mytask-box-top button:hover {
+  background-color: #0a6545;
+  transform: scale(0.95);
 }
 #task-dialog {
   position: fixed;
   inset: 0;
   margin: auto;
 
-  width: 700px;
-  height: 730px;
+  width: 40%;
+  height: 50rem;
   padding: 25px;
 
   border-radius: 15px;
@@ -742,6 +747,12 @@ main {
   padding-left: 15px;
 }
 
+.description-box-mytask,
+.task-title {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
 .description-box-mytask textarea {
   width: 95%;
   height: 120px;
@@ -803,4 +814,58 @@ main {
 .task-field select:focus,
 .task-field input:focus {
   border-color: #526e63;
+}
+.attach-file-area {
+  margin-top: 5%;
+  font-family: "Inter", system-ui, sans-serif;
+}
+.attach-file-area label {
+  margin: 5.5%;
+
+  font-size: 15px;
+  font-weight: 500;
+  color: #4f6b5f;
+}
+
+.box-sa-file {
+  margin-top: 1%;
+  margin-left: 5%;
+  height: 7rem;
+  width: 90%;
+  background-color: #f2f6f3;
+  border-radius: 15px;
+  border: 2.5px dashed #b7ccc1;
+}
+#input-file {
+  width: 300px;
+}
+#input-file::file-selector-button {
+  margin-top: 10%;
+  margin-left: 5%;
+  height: 50px;
+  width: 190px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #0e6b4a;
+  background: #ddefe6;
+  color: #0b5a3e;
+  transition: transform 0.2s ease;
+}
+#input-file::file-selector-button:hover {
+  background-color: #c2f3da;
+}
+#input-file::file-selector-button:focus {
+  transform: scale(0.95);
+}
+.box-sa-file button {
+  margin-left: 40%;
+  width: 80px;
+  height: 35px;
+  background-color: #f4e4e2;
+  border-radius: 9px;
+  color: #8e3b36;
+  border: 1px solid #e8d3d0;
+}
+.box-sa-file button:hover {
+  background-color: #d0a29b;
 }

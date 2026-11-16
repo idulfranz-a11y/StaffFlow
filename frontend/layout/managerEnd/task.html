@@ -55,10 +55,27 @@
     <div class="topbar">
       <div class="greetings">
         <strong>Home</strong>
-        <p>EMPLOYEE WORKSPACE</p>
+        <p>MANAGER WORKSPACE</p>
+      </div>
+      <div class="right-side-section">
+        <input type="search" placeholder="Search Tasks Or Teams" />
+        <div class="border-ni-ambot-basta-ari-lang-sa-ni">
+          <button class="notif-btn" type="button">
+            <i data-lucide="bell-ring"></i>
+          </button>
+        </div>
+        <div class="account-section-topbar">
+          <div class="circle-sa-icon">
+            <i class="account-user" data-lucide="user"></i>
+          </div>
+          <div class="label-sa-account">
+            <p class="Employename">Franz Ryle Idul</p>
+            <p class="account-role">Manager</p>
+          </div>
+        </div>
       </div>
     </div>
-    <main>
+    <main class="main-myteam">
       <div class="main-box-myTask">
         <div class="mytask-box-top">
           <h2>Task Management</h2>
@@ -125,6 +142,13 @@
           <div class="task-field">
             <label for="deadline">Due Date</label>
             <input type="date" id="deadline" name="deadline" required />
+          </div>
+        </div>
+        <div class="attach-file-area">
+          <label for=""> <b>File Attachment</b> <span>(optional)</span></label>
+          <div class="box-sa-file">
+            <input id="input-file" type="file" />
+            <button>remove</button>
           </div>
         </div>
       </dialog>

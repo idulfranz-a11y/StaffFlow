@@ -57,12 +57,82 @@
         <strong>Home</strong>
         <p>EMPLOYEE WORKSPACE</p>
       </div>
+      <div class="right-side-section">
+        <input type="search" placeholder="Search Tasks Or Teams" />
+        <div class="border-ni-ambot-basta-ari-lang-sa-ni">
+          <button class="notif-btn" type="button">
+            <i data-lucide="bell-ring"></i>
+          </button>
+        </div>
+        <div class="account-section-topbar">
+          <div class="circle-sa-icon">
+            <i class="account-user" data-lucide="user"></i>
+          </div>
+          <div class="label-sa-account">
+            <p class="Employename">Franz Ryle Idul</p>
+            <p class="account-role">Manager</p>
+          </div>
+        </div>
+      </div>
     </div>
     <main>
-      <p id="hello">Good Day Employee!</p>
-      <p id="here">Here's what's happening today</p>
+      <div class="box-join-team">
+        <div class="header-join-team">
+          <h1>Join Your Time</h1>
+          <p>Enter the team code provided by your manager</p>
+          <div class="border-sa-econ">
+            <i data-lucide="key"></i>
+          </div>
+        </div>
+        <div class="lower-part">
+          <div class="ambotlang">
+            <label for="">Team code</label>
+            <input type="text" />
+          </div>
+          <p>Enter a team code (e.g., TEAM-17686).</p>
+          <button>Join Team</button>
+        </div>
+        <div class="instructions">
+          <h2>HOW IT WORKS</h2>
+          <p id="t1"><span>1</span> Ask your manager for the team code</p>
+          <p id="t2"><span>2</span> Type in the box above</p>
+          <p id="t3"><span>3</span> Your team and manager appears here</p>
+        </div>
+      </div>
+      <div class="box-team">
+        <!-- Upper Part -->
+        <div class="header-current-team">
+          <p id="current">Current Team</p>
+          <h1>Team 1</h1>
 
-      <div class="dakoBox"></div>
+          <div class="icon-area">
+            <i data-lucide="users"></i>
+            <span id="member-count">0</span>
+            <p>Members</p>
+          </div>
+        </div>
+
+        <!-- Team Members -->
+        <div class="team-members-section">
+          <div class="team-members-header">
+            <h3>Team members</h3>
+            <span>0</span>
+          </div>
+
+          <div class="team-members-list" id="member-list">
+            <template id="member-template">
+              <div class="member-row">
+                <div class="member-info">
+                  <span class="member-initials"></span>
+                  <p class="member-name"></p>
+                </div>
+
+                <span class="member-role"></span>
+              </div>
+            </template>
+          </div>
+        </div>
+      </div>
     </main>
     <script>
       lucide.createIcons();

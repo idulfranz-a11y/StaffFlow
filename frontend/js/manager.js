@@ -1,8 +1,7 @@
 // ============================================
-// manager.js – Manager and My Team functionality
+// My Team - Manager Functionality
 // ============================================
 
-// Only run My Team functionality when its elements exist
 const teamList = document.getElementById("team-list");
 
 if (teamList) {
@@ -32,61 +31,65 @@ if (teamList) {
   let selectedTeamId = null;
 
   // ---------- Data ----------
-  function loadTeams() {
-    try {
-      const saved = JSON.parse(localStorage.getItem("teams"));
+  let teams = [];
 
-      if (Array.isArray(saved)) return saved;
-    } catch (e) {
-      console.error("Unable to load teams:", e);
-    }
+  // ============================================
+  // Format Team Data
+  // ============================================
 
-    return [
-      { id: 1, name: "team 1", code: "TEAM-17686", members: 2 },
-      { id: 2, name: "team 2", code: "TEAM-B1C0R", members: 1 },
-    ];
+  function formatTeam(team) {
+    return {
+      id: team.id,
+      name: team.name || team.team_name || "Unnamed Team",
+      code: team.code || team.access_code || "",
+      members: Number(team.members ?? 0),
+    };
   }
 
-  let teams = loadTeams();
+  // ============================================
+  // Load Teams from MySQL
+  // ============================================
 
-  // ---------- Save Teams ----------
-  function saveTeams() {
+  async function loadTeams() {
     try {
-      localStorage.setItem("teams", JSON.stringify(teams));
-    } catch (e) {
-      console.error("Unable to save teams:", e);
-    }
-  }
+      const response = await fetch("/api/teams");
+      const data = await response.json();
 
-  // ---------- Generate Unique Team Code ----------
-  function generateCode() {
-    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let code;
-
-    do {
-      code = "TEAM-";
-
-      for (let i = 0; i < 5; i++) {
-        code += chars[Math.floor(Math.random() * chars.length)];
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to load teams.");
       }
-    } while (teams.some((team) => team.code === code));
 
-    return code;
+      teams = Array.isArray(data.teams) ? data.teams.map(formatTeam) : [];
+
+      renderTeams();
+    } catch (error) {
+      console.error("Loading teams failed:", error);
+      alert(error.message || "Unable to load teams.");
+    }
   }
 
-  // ---------- Count Total Teams ----------
+  // ============================================
+  // Count Total Teams
+  // ============================================
+
   function countTeams() {
     if (totalTeamValue) {
       totalTeamValue.textContent = teams.length;
     }
   }
 
-  // ---------- Calculate Total Pages ----------
+  // ============================================
+  // Calculate Total Pages
+  // ============================================
+
   function getTotalPages() {
     return Math.max(1, Math.ceil(teams.length / teamsPerPage));
   }
 
-  // ---------- Update Pagination ----------
+  // ============================================
+  // Update Pagination
+  // ============================================
+
   function updatePagination() {
     const totalPages = getTotalPages();
 
@@ -105,7 +108,10 @@ if (teamList) {
     }
   }
 
-  // ---------- Render Teams ----------
+  // ============================================
+  // Render Teams
+  // ============================================
+
   function renderTeams() {
     teamList.innerHTML = "";
 
@@ -153,14 +159,13 @@ if (teamList) {
     if (window.lucide) {
       lucide.createIcons();
     }
-
-    console.log("Total teams:", teams.length);
-    console.log("Total pages:", getTotalPages());
-    console.log("Current page:", currentPage);
   }
 
-  // ---------- Create a Team ----------
-  function createTeam() {
+  // ============================================
+  // Create a Team in MySQL
+  // ============================================
+
+  async function createTeam() {
     const name = nameInput.value.trim();
 
     if (!name) {
@@ -174,28 +179,73 @@ if (teamList) {
       return;
     }
 
-    teams.unshift({
-      id: Date.now(),
-      name: name,
-      code: generateCode(),
-      members: 0,
-    });
+    try {
+      generateBtn.disabled = true;
 
-    nameInput.value = "";
+      const response = await fetch("/api/teams", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          team_name: name,
+        }),
+      });
+      const responseText = await response.text();
 
-    // Return to the first page after creating a team
-    currentPage = 1;
+      console.log("API Status:", response.status);
+      console.log("API Response:", responseText);
 
-    saveTeams();
-    renderTeams();
+      let data;
+
+      try {
+        data = JSON.parse(responseText);
+      } catch (error) {
+        throw new Error(
+          "Server returned HTML instead of JSON. Check the API route.",
+        );
+      }
+
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to create team.");
+      }
+
+      if (!data.team) {
+        throw new Error("The server did not return the created team.");
+      }
+
+      // Format the team data before adding it
+      const newTeam = formatTeam(data.team);
+
+      teams.unshift(newTeam);
+
+      nameInput.value = "";
+      currentPage = 1;
+
+      renderTeams();
+
+      // No success alert here.
+      // The new team card confirms successful creation.
+    } catch (error) {
+      console.error("Creating team failed:", error);
+      alert(error.message || "Unable to create team.");
+    } finally {
+      generateBtn.disabled = false;
+    }
   }
 
-  // ---------- Generate Button ----------
+  // ============================================
+  // Generate Button
+  // ============================================
+
   if (generateBtn) {
     generateBtn.addEventListener("click", createTeam);
   }
 
-  // ---------- Enter Key ----------
+  // ============================================
+  // Enter Key
+  // ============================================
+
   if (nameInput) {
     nameInput.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
@@ -204,7 +254,10 @@ if (teamList) {
     });
   }
 
-  // ---------- Copy and Open Delete Modal ----------
+  // ============================================
+  // Copy Team Code and Open Delete Modal
+  // ============================================
+
   teamList.addEventListener("click", (e) => {
     const copy = e.target.closest(".btn-copy");
     const del = e.target.closest(".btn-delete");
@@ -233,14 +286,20 @@ if (teamList) {
     }
   });
 
-  // ---------- Close Copy Success Modal ----------
+  // ============================================
+  // Close Copy Success Modal
+  // ============================================
+
   if (okayCopyBtn && copyModal) {
     okayCopyBtn.addEventListener("click", () => {
       copyModal.close();
     });
   }
 
-  // ---------- Cancel Delete ----------
+  // ============================================
+  // Cancel Delete
+  // ============================================
+
   if (cancelDeleteBtn && deleteModal) {
     cancelDeleteBtn.addEventListener("click", () => {
       selectedTeamId = null;
@@ -248,23 +307,23 @@ if (teamList) {
     });
   }
 
-  // ---------- Confirm Delete ----------
+  // ============================================
+  // Delete Confirmation (Not Connected Yet)
+  // ============================================
+
   if (confirmDeleteBtn && deleteModal) {
     confirmDeleteBtn.addEventListener("click", () => {
-      if (selectedTeamId === null) return;
-
-      teams = teams.filter((team) => team.id !== selectedTeamId);
-
-      saveTeams();
+      alert("Team deletion will be connected to MySQL in the next step.");
 
       selectedTeamId = null;
       deleteModal.close();
-
-      renderTeams();
     });
   }
 
-  // ---------- Previous Page ----------
+  // ============================================
+  // Previous Page
+  // ============================================
+
   if (prevBtn) {
     prevBtn.addEventListener("click", () => {
       if (currentPage > 1) {
@@ -274,7 +333,10 @@ if (teamList) {
     });
   }
 
-  // ---------- Next Page ----------
+  // ============================================
+  // Next Page
+  // ============================================
+
   if (nextBtn) {
     nextBtn.addEventListener("click", () => {
       if (currentPage < getTotalPages()) {
@@ -284,54 +346,9 @@ if (teamList) {
     });
   }
 
-  // ---------- Initial Display ----------
-  renderTeams();
+  // ============================================
+  // Initial Display
+  // ============================================
+
+  loadTeams();
 }
-
-// ============================================
-// Recent Teams - Manager Dashboard
-// ============================================
-
-const recentTeamList = document.getElementById("recent-team-list");
-const recentTeamTemplate = document.getElementById("recent-team-template");
-
-if (recentTeamList && recentTeamTemplate) {
-  const savedTeams = JSON.parse(localStorage.getItem("teams")) || [];
-
-  // Display only the latest 3 teams
-  const recentTeams = savedTeams.slice(0, 3);
-
-  recentTeams.forEach((team) => {
-    const card = recentTeamTemplate.content.cloneNode(true);
-
-    card.querySelector(".recent-team-name").textContent = team.name;
-    card.querySelector(".recent-team-code").textContent = team.code;
-
-    card.querySelector(".recent-team-members").textContent =
-      team.members + (team.members === 1 ? " member" : " members");
-
-    card.querySelector(".recent-team-details").href =
-      "team-details.html?id=" + team.id;
-
-    recentTeamList.appendChild(card);
-  });
-
-  if (window.lucide) {
-    lucide.createIcons();
-  }
-}
-
-const taskDialog = document.getElementById("task-dialog");
-const closeTask = document.getElementById("close-task");
-const openDialog = document.getElementById("new-task");
-
-openDialog.addEventListener("click", () => {
-  taskDialog.showModal();
-});
-
-// Close using X button
-closeTask.addEventListener("click", () => {
-  taskDialog.close();
-});
-
-// Close when clicking outside

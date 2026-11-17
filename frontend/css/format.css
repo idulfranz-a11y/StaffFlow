@@ -73,8 +73,37 @@ body {
   position: relative;
   top: 200px;
   right: 15px;
+  height: 50px;
+  width: 260px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2d5e4e;
+  color: white;
+  gap: 10px;
+  font-size: 22px;
+  border: none;
+  outline: none;
+  margin-left: 9%;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+#log-out:hover {
+  background-color: #2e8371;
+}
+#log-out:focus {
+  transform: scale(0.95);
 }
 
+#logout-button {
+  z-index: 99;
+  margin-top: -10%;
+  height: 20rem;
+  width: 20%;
+  background-color: white;
+  outline: none;
+  border: none;
+}
 /* topbar content starts here*/
 .topbar {
   grid-area: topbar;

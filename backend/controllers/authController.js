@@ -50,6 +50,10 @@ const login = (req, res) => {
           message: "Invalid employee ID or password.",
         });
       }
+      req.session.user = {
+        id: user.id,
+        role: user.role,
+      };
 
       return res.status(200).json({
         message: "Login successful!",

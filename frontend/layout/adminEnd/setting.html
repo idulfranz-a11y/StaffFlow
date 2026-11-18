@@ -42,11 +42,27 @@
           <span>Settings</span>
         </a>
 
-        <a id="log-out">
+        <button id="log-out">
           <i data-lucide="log-out"></i>
           <span>Leave Workspace</span>
-        </a>
+        </button>
       </nav>
+      <dialog id="logout-button">
+        <div class="box-logout">
+          <div class="logout-border">
+            <i data-lucide="log-out"></i>
+          </div>
+          <h3>Log out of StaffFlow?</h3>
+          <p>
+            Are you sure do you want to log out? You'll need to sign in again to
+            view your work.
+          </p>
+          <div class="choices">
+            <button id="yes-btn">Yes</button>
+            <button id="no-btn">No</button>
+          </div>
+        </div>
+      </dialog>
     </div>
     <div class="topbar">
       <div class="greetings">
@@ -54,7 +70,7 @@
         <p>ADMIN WORKSPACE</p>
       </div>
     </div>
-    <main>
+    <main class="main-admin">
       <p id="hello">Good Day Admin!</p>
       <p id="here">Here's what's happening today</p>
       <h2>setting</h2>

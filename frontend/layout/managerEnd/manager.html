@@ -51,8 +51,21 @@
           <span>Leave Workspace</span>
         </button>
       </nav>
-      <dialog id="logout-button" open>
-        <h3>Are you sure you want log out?</h3>
+      <dialog id="logout-button">
+        <div class="box-logout">
+          <div class="logout-border">
+            <i data-lucide="log-out"></i>
+          </div>
+          <h3>Log out of StaffFlow?</h3>
+          <p>
+            Are you sure do you want to log out? You'll need to sign in again to
+            view your work.
+          </p>
+          <div class="choices">
+            <button id="yes-btn">Yes</button>
+            <button id="no-btn">No</button>
+          </div>
+        </div>
       </dialog>
     </div>
     <div class="topbar">

@@ -23,6 +23,7 @@
         /></a>
         <h1 id="StaffFlow" class="stafflow">StaffFlow</h1>
       </div>
+      <label id="menu">Menu</label>
 
       <nav id="side-nav">
         <div class="box-hover"></div>
@@ -46,11 +47,27 @@
           <span>Settings</span>
         </a>
 
-        <a id="log-out">
+        <button id="log-out">
           <i data-lucide="log-out"></i>
           <span>Leave Workspace</span>
-        </a>
+        </button>
       </nav>
+      <dialog id="logout-button">
+        <div class="box-logout">
+          <div class="logout-border">
+            <i data-lucide="log-out"></i>
+          </div>
+          <h3>Log out of StaffFlow?</h3>
+          <p>
+            Are you sure do you want to log out? You'll need to sign in again to
+            view your work.
+          </p>
+          <div class="choices">
+            <button id="yes-btn">Yes</button>
+            <button id="no-btn">No</button>
+          </div>
+        </div>
+      </dialog>
     </div>
     <div class="topbar">
       <div class="greetings">

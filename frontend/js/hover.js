@@ -75,3 +75,16 @@ window.addEventListener("resize", () => {
 });
 
 //basta kato mo move
+
+//kani sa log out ni ambot ngano naa ni ari basta kani
+const logoutmodal = document.getElementById("logout-button");
+const logoutbtn = document.getElementById("log-out");
+const no = document.getElementById("no-btn");
+
+logoutbtn.addEventListener("click", () => {
+  logoutmodal.showModal();
+});
+
+no.addEventListener("click", () => {
+  logoutmodal.close();
+});

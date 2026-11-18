@@ -1,6 +1,16 @@
 /* Dashboard CCS*/
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 
+.main-admin {
+  background:
+    linear-gradient(rgba(18, 58, 46, 0.62), rgba(18, 58, 46, 0.62)),
+    url("../image/picturesaoffice.jpg");
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  gap: 10%;
+}
 .box-container {
   position: relative;
   display: flex;
@@ -33,7 +43,7 @@
   font-size: 40px;
   font-family: "Inter", sans-serif;
   font-weight: 600;
-  color: #183e36;
+  color: #bfe6d2;
 }
 #here {
   position: absolute;
@@ -41,6 +51,7 @@
   top: 14%;
   font-size: 27px;
   font-family: "Inter", system-ui, sans-serif;
+  color: white;
 }
 
 .bigBox {

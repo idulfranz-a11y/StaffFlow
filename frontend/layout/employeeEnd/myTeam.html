@@ -94,7 +94,7 @@
     <main>
       <div class="box-join-team">
         <div class="header-join-team">
-          <h1>Join Your Time</h1>
+          <h1>Join Your Team</h1>
           <p>Enter the team code provided by your manager</p>
           <div class="border-sa-econ">
             <i data-lucide="key"></i>
@@ -102,11 +102,17 @@
         </div>
         <div class="lower-part">
           <div class="ambotlang">
-            <label for="">Team code</label>
-            <input type="text" />
+            <label for="team code">Team code</label>
+            <input
+              type="text"
+              id="team-code"
+              placeholder="TEAM-17686"
+              autocomplete="off"
+            />
           </div>
           <p>Enter a team code (e.g., TEAM-17686).</p>
-          <button>Join Team</button>
+          <button id="join-btn" type="button">Join Team</button>
+          <p id="join-message" role="status"></p>
         </div>
         <div class="instructions">
           <h2>HOW IT WORKS</h2>
@@ -152,5 +158,6 @@
       lucide.createIcons();
     </script>
     <script src="../../js/hover.js"></script>
+    <script src="../../js/jointeam.js"></script>
   </body>
 </html>

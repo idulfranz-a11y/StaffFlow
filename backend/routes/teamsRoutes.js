@@ -3,10 +3,12 @@ const teamsController = require("../controllers/teamsController");
 
 const router = express.Router();
 
-// GET all teams
+// Manager routes
 router.get("/", teamsController.getTeams);
-
-// POST create a team
 router.post("/", teamsController.createTeam);
+
+// Employee routes
+router.post("/join", teamsController.joinTeam);
+router.get("/my-team", teamsController.getMyTeam);
 
 module.exports = router;

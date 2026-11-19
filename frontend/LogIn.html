@@ -6,26 +6,31 @@
     <link rel="stylesheet" href="css/Login.css" />
     <title>Staff Flow</title>
     <link rel="icon" href="image/icon.png" />
+    <script src="https://unpkg.com/lucide@latest"></script>
   </head>
   <body>
     <div class="bord">
       <div class="leftside">
-        <h1 class="header">StaffFlow</h1>
+        <h1 class="header">Welcome back!</h1>
+        <p class="semi-header">Sign in to your StaffFlow workspace.</p>
         <img id="icon" src="image/icon.png" alt="icon" />
         <div class="idNumer">
-          <p style="color: green"><b>Employee's ID</b></p>
+          <label>Account ID</label>
           <input
             placeholder="Employee's ID"
             id="idNumber"
             type="text"
             class="input"
           />
+          <i data-lucide="user"></i>
         </div>
         <div class="password">
-          <p style="color: green"><b>Password</b></p>
+          <label>Password</label>
           <input id="password" type="password" class="input" />
-          <button id="eye-icon" type="button">👁</button>
-          <a href="forgot.html" id="forgot" class="forgot">Forgot Password</a>
+          <i id="lock" data-lucide="lock"></i>
+          <button id="eye-icon" type="button">
+            <i data-lucide="eye"></i>
+          </button>
         </div>
         <p id="loginMessage" role="status"></p>
       </div>
@@ -34,52 +39,81 @@
 
       <div class="signup-border"></div>
 
-      <h1 style="color: aliceblue" class="greetings">
+      <h1 id="readytomanage" style="color: aliceblue" class="greetings">
         Ready to Manage Your Tasks?
       </h1>
       <h3 id="description" style="color: white" class="mama">
-        No account yet? Create one here.
+        Don't have an account? Sign up and join your team.
       </h3>
       <button id="clickSignUP" type="button">Sign up</button>
-      <div class="righside">
+      <div class="rightside" style="visibility: hidden">
         <div class="inputs">
           <h1 class="header-rightside">Already Have An Account?</h1>
-          <h1 id="fillup">Fill up here</h1>
-          <h3 id="left-description">Click Log In to continue.</h3>
-          <input
-            class="all-right"
-            type="text"
-            id="firstName"
-            placeholder="First Name"
-          />
-          <input
-            class="all-right"
-            type="text"
-            id="lastName"
-            placeholder="Last Name"
-          />
-          <input
-            class="all-right"
-            type="number"
-            id="id"
-            placeholder="ID number"
-          />
-          <input
-            class="all-right"
-            type="password"
-            id="rightPassword"
-            placeholder="Enter Password"
-          />
-          <input
-            class="all-right"
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-          />
+          <h1 id="fillup">Create your account</h1>
+          <h3 id="left-description">Sign in to pick where you left off .</h3>
+          <p id="paragrapht-na-gamay">Fill in your details to get started.</p>
+          <div class="name-section">
+            <div class="firstname-section">
+              <label>First name</label>
+              <input
+                class="all-right"
+                type="text"
+                id="firstName"
+                placeholder="First Name"
+              />
+              <i data-lucide="user"></i>
+            </div>
+            <div class="lastname-section">
+              <label>Last name</label>
+              <input
+                class="all-right"
+                type="text"
+                id="lastName"
+                placeholder="Last Name"
+              />
+              <i data-lucide="user"></i>
+            </div>
+          </div>
+          <div class="threeinputs">
+            <div class="accountnumber-section">
+              <label>Account ID</label>
+              <input
+                class="all-right"
+                type="text"
+                id="id"
+                placeholder="ID number"
+              />
+              <i data-lucide="id-card"></i>
+            </div>
+            <div class="password-section">
+              <label>Password</label>
+              <input
+                class="all-right"
+                type="password"
+                id="rightPassword"
+                placeholder="Enter Password"
+              />
+              <i data-lucide="lock"></i>
+            </div>
+            <div class="confirmpassword-section">
+              <label>Confirm password</label>
+              <input
+                class="all-right"
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+              />
+              <i data-lucide="lock"></i>
+            </div>
+          </div>
+
           <button type="submit" id="legitNaSignUp">Sign Up</button>
         </div>
       </div>
     </div>
-    <script src="/js/login.js"></script>
+    <script src="js/login.js"></script>
+    <script>
+      lucide.createIcons();
+    </script>
   </body>
 </html>

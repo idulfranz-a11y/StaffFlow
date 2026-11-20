@@ -282,21 +282,19 @@
 }
 /*Registration*/
 .kahon {
-  position: absolute;
-  top: -900%;
-  left: -30%;
-  height: 42rem;
-  width: 77%;
+  margin-top: 6%;
+  margin-left: 10%;
+  height: 38rem;
+  width: 80%;
   background-color: white;
   border-radius: 30px;
   box-shadow: 0 0 20px rgba(18, 54, 43, 0.04);
+  z-index: 99;
 }
 
 .header-registration {
   /*<--share ra sila sa manage na header*/
-  position: relative;
-  left: 3rem;
-  top: 1rem;
+
   font-family: "Inter", sans-serif;
   font-weight: 600;
   color: #183e36;
@@ -369,4 +367,258 @@
 }
 .status {
   width: 30%;
+}
+.search-btn-acc {
+  margin-top: 1%;
+  position: relative;
+}
+.search-btn-acc svg {
+  position: absolute;
+  top: 18%;
+  left: 3%;
+  color: #4f6b5f;
+}
+/*manager acocunt*/
+.upper-stuff {
+  display: flex;
+  gap: 50%;
+}
+.upper-stuff h2 {
+  margin-left: 5%;
+}
+.upper-stuff input {
+  margin-top: 2%;
+  width: 250px;
+  height: 45px;
+  background-color: s#F2F6F3;
+  border-radius: 12px;
+  border: 1px solid #b7ccc1;
+  padding-left: 35px;
+  font-size: 16px;
+}
+.upper-stuff input:focus {
+  border: 2px solid #0b7a54;
+  outline: none;
+}
+.account-count {
+  margin-left: 5%;
+  margin-top: -15px;
+  font-size: 24px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+.accounts-choices {
+  display: flex;
+  gap: 20px;
+  margin-left: 5%;
+}
+.accounts-choices button {
+  width: 90px;
+  height: 30px;
+  border-radius: 12px;
+  background-color: transparent;
+  border: 1px solid #0e6b4a;
+  transition: transform 0.2s ease;
+}
+.accounts-choices button:hover {
+  transform: translateY(-5px);
+}
+.accounts-choices button.active {
+  background-color: #1f825f;
+  color: white;
+  border: 1px solid #075c45;
+}
+
+/* ACCOUNTS LIST */
+.accounts-list {
+  width: 90%;
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin-left: 5%;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+/* EACH ACCOUNT */
+.account-row {
+  width: 100%;
+  min-height: 85px;
+  padding: 15px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  background-color: #f2f6f3;
+  border: 1px solid #dce5df;
+  border-radius: 12px;
+
+  box-sizing: border-box;
+  transition: 0.2s ease;
+}
+
+.account-row:hover {
+  background-color: #edf4ee;
+  border-color: #a8c3ad;
+}
+
+/* PROFILE SECTION */
+.account-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 2;
+  min-width: 0;
+}
+
+.account-initials {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #dce9df;
+  color: #183e36;
+  border-radius: 50%;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.account-details {
+  min-width: 0;
+}
+
+.account-name {
+  margin: 0;
+  font-size: 15px;
+  color: #183e36;
+  font-weight: 600;
+}
+
+.account-email {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: #718078;
+}
+
+/* ROLE AND STATUS */
+.account-role,
+.account-status {
+  flex: 1;
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: #526e63;
+}
+.account-status {
+  color: #0b5a3e;
+  font-size: 16px;
+  background-color: #ddefe6;
+}
+
+/* ACTION BUTTONS */
+.account-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex: 1.5;
+}
+
+.account-actions button {
+  min-width: 75px;
+  height: 32px;
+  padding: 0 10px;
+
+  border-radius: 8px;
+  border: 1px solid #0e6b4a;
+
+  background-color: transparent;
+  color: #0e6b4a;
+
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.account-actions .edit-account:hover {
+  background-color: #0d6143;
+  color: white;
+}
+
+.account-actions .deactivate-account {
+  border-color: #bd5555;
+  color: #bd5555;
+}
+
+.account-actions .deactivate-account:hover {
+  background-color: #bd5555;
+  color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 850px) {
+  .account-row {
+    flex-wrap: wrap;
+  }
+
+  .account-profile {
+    flex-basis: 100%;
+  }
+
+  .account-role,
+  .account-status {
+    flex: 1;
+  }
+
+  .account-actions {
+    flex-basis: 100%;
+    justify-content: flex-start;
+  }
+}
+
+.accounts-labels {
+  margin-top: 1%;
+  margin-bottom: 0%;
+  margin-left: 14%;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 3fr 2fr 3fr 2fr;
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: 19px;
+  font-weight: 500;
+  color: #075c45;
+}
+
+/* pagnition*/
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.pagination button {
+  padding: 8px 15px;
+  border: 1px solid #0e6b4a;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#page-indicator {
+  font-size: 14px;
+  font-weight: 600;
 }

@@ -70,6 +70,7 @@ main {
   background-color: white;
   border-radius: 30px;
   border: 1px solid #e1e9e4;
+  font-family: "Inter", system-ui, sans-serif;
 }
 .header-join-team h1 {
   margin-left: 25%;

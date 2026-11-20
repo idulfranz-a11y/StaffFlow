@@ -59,8 +59,8 @@
             view your work.
           </p>
           <div class="choices">
-            <button id="yes-btn">Yes</button>
-            <button id="no-btn">No</button>
+            <button type="button" id="yes-btn">Yes</button>
+            <button type="button" id="no-btn">No</button>
           </div>
         </div>
       </dialog>
@@ -72,16 +72,70 @@
       </div>
     </div>
     <main class="main-admin">
-      <p id="hello">Good Day Admin!</p>
-      <p id="here">Here's what's happening today</p>
       <div class="kahon">
-        <h2 class="header-registration">People & Access</h2>
+        <div class="upper-stuff">
+          <h2 class="header-registration">People & Access</h2>
+
+          <div class="search-btn-acc">
+            <input
+              type="search"
+              id="accounts-search"
+              placeholder="Search people..."
+            />
+            <i data-lucide="search"></i>
+          </div>
+        </div>
+
+        <p class="account-count"><span id="account-count">0</span> Accounts</p>
+
+        <div class="accounts-choices">
+          <button type="button" id="btn-all" class="active">All</button>
+          <button type="button" id="btn-manager">Manager</button>
+          <button type="button" id="btn-employee">Employee</button>
+        </div>
+
+        <div class="accounts-labels">
+          <span class="label1">User</span>
+          <span class="label2">Role</span>
+          <span class="label3">Status</span>
+          <span class="label4">Action</span>
+        </div>
+
+        <div class="accounts-list" id="accounts-list">
+          <template id="account-template">
+            <div class="account-row">
+              <div class="account-profile">
+                <div class="account-initials"></div>
+                <div class="account-details">
+                  <h3 class="account-name"></h3>
+                </div>
+              </div>
+
+              <p class="account-role"></p>
+              <p class="account-status"></p>
+
+              <div class="account-actions">
+                <button type="button" class="edit-account">Edit</button>
+                <button type="button" class="deactivate-account">
+                  Deactivate
+                </button>
+              </div>
+            </div>
+          </template>
+        </div>
+
+        <div class="pagination">
+          <button type="button" id="prev-page" disabled>Previous</button>
+          <span id="page-indicator">1 / 1</span>
+          <button type="button" id="next-page" disabled>Next</button>
+        </div>
       </div>
-      <h2>manage</h2>
     </main>
     <script>
       lucide.createIcons();
     </script>
     <script src="../../js/hover.js"></script>
+    <script src="../../js/logout.js"></script>
+    <script src="../../js/adminFT.js"></script>
   </body>
 </html>

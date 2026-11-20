@@ -4,6 +4,7 @@ const session = require("express-session");
 
 const authRoutes = require("./routes/authRoutes");
 const teamsRoutes = require("./routes/teamsRoutes");
+const usersRoutes = require("./routes/usersRoutes"); // NEW
 
 const app = express();
 const PORT = 3000;
@@ -33,8 +34,7 @@ app.use(express.static(path.join(__dirname, "../frontend")));
 // API routes
 app.use("/api", authRoutes);
 app.use("/api/teams", teamsRoutes);
-
-// Home page
+app.use("/api/users", usersRoutes); // NEW
 
 // Home page - Check existing session
 app.get("/", (req, res) => {

@@ -90,6 +90,8 @@
 
         <div class="accounts-choices">
           <button type="button" id="btn-all" class="active">All</button>
+
+          <button type="button" id="btn-admin">Admin</button>
           <button type="button" id="btn-manager">Manager</button>
           <button type="button" id="btn-employee">Employee</button>
         </div>
@@ -115,9 +117,12 @@
               <p class="account-status"></p>
 
               <div class="account-actions">
-                <button type="button" class="edit-account">Edit</button>
-                <button type="button" class="deactivate-account">
-                  Deactivate
+                <button
+                  type="button"
+                  class="deactivate-account"
+                  id="dl-btn-dia"
+                >
+                  Delete
                 </button>
               </div>
             </div>
@@ -131,6 +136,16 @@
         </div>
       </div>
     </main>
+    <dialog class="delete-diagram" id="delete-dialog">
+      <h1>Are you sure do want to delete this account?</h1>
+      <p>
+        Deleting this account will permanently remove all of the user’s data.
+      </p>
+      <div class="choices-delete-acc">
+        <button type="button" id="yes-delete-acc">Yes</button>
+        <button type="button" id="no-delete">No</button>
+      </div>
+    </dialog>
     <script>
       lucide.createIcons();
     </script>

@@ -95,23 +95,22 @@
               />
               <i data-lucide="lock"></i>
             </div>
-            <div class="confirmpassword-section">
-              <label>Confirm password</label>
-              <input
-                class="all-right"
-                type="password"
-                id="confirmPassword"
-                placeholder="Confirm Password"
-              />
-              <i data-lucide="lock"></i>
+            <div class="select-role-border">
+              <label for="selec-role">Account Role</label>
+              <select name="role" id="selec-role">
+                <option value="admin">Admin</option>
+                <option value="manager">Manager</option>
+                <option value="employee">Employee</option>
+              </select>
+              <i data-lucide="badge-check"></i>
             </div>
+            <button type="submit" id="legitNaSignUp">Sign Up</button>
           </div>
-
-          <button type="submit" id="legitNaSignUp">Sign Up</button>
         </div>
       </div>
     </div>
     <script src="js/login.js"></script>
+    <script src="js/signup.js"></script>
     <script>
       lucide.createIcons();
     </script>

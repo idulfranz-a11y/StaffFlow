@@ -15,6 +15,8 @@ document.querySelectorAll(".bar").forEach((bar) => {
   bar.style.width = `${percentage}%`;
 });
 
+// MANAGE ACCOUNTS
+
 const accountList = document.getElementById("accounts-list");
 const accountTemplate = document.getElementById("account-template");
 
@@ -22,26 +24,70 @@ const prevPage = document.getElementById("prev-page");
 const nextPage = document.getElementById("next-page");
 const pageIndicator = document.getElementById("page-indicator");
 
+const searchInput = document.getElementById("accounts-search");
+const accountCount = document.getElementById("account-count");
+
+const allButton = document.getElementById("btn-all");
+const adminButton = document.getElementById("btn-admin");
+const managerButton = document.getElementById("btn-manager");
+const employeeButton = document.getElementById("btn-employee");
+
 const accountsPerPage = 4;
 
 let allAccounts = [];
+let filteredAccounts = [];
 let accountCurrentPage = 1;
+let currentRole = "all";
+
+// DISPLAY ACCOUNTS
 
 function displayAccounts(accounts) {
-  // Store all accounts
   allAccounts = accounts;
+  filteredAccounts = [...allAccounts];
 
-  // Reset to first page
   accountCurrentPage = 1;
 
   renderAccounts();
 }
 
+// FILTER ACCOUNTS
+
+function filterAccounts() {
+  const searchValue = searchInput.value.toLowerCase().trim();
+
+  filteredAccounts = allAccounts.filter((account) => {
+    const fullName = `${account.first_name} ${account.last_name}`.toLowerCase();
+
+    const matchesSearch = fullName.includes(searchValue);
+
+    const matchesRole =
+      currentRole === "all" || account.role.toLowerCase() === currentRole;
+
+    return matchesSearch && matchesRole;
+  });
+
+  accountCurrentPage = 1;
+
+  renderAccounts();
+}
+
+// UPDATE ACTIVE BUTTON
+
+function updateActiveButton(activeButton) {
+  [allButton, adminButton, managerButton, employeeButton].forEach((button) => {
+    button.classList.remove("active");
+  });
+
+  activeButton.classList.add("active");
+}
+
+// RENDER ACCOUNTS
+
 function renderAccounts() {
   // Calculate total pages
   const totalPages = Math.max(
     1,
-    Math.ceil(allAccounts.length / accountsPerPage),
+    Math.ceil(filteredAccounts.length / accountsPerPage),
   );
 
   // Make sure current page is valid
@@ -51,12 +97,14 @@ function renderAccounts() {
   const start = (accountCurrentPage - 1) * accountsPerPage;
   const end = start + accountsPerPage;
 
-  const visibleAccounts = allAccounts.slice(start, end);
+  const visibleAccounts = filteredAccounts.slice(start, end);
 
   // Clear previous accounts
-  accountList.querySelectorAll(".account-row").forEach((row) => row.remove());
+  accountList.querySelectorAll(".account-row").forEach((row) => {
+    row.remove();
+  });
 
-  // Display only the accounts for this page
+  // Display accounts
   visibleAccounts.forEach((account) => {
     const clone = accountTemplate.content.cloneNode(true);
 
@@ -76,35 +124,70 @@ function renderAccounts() {
   });
 
   // Update account count
-  document.getElementById("account-count").textContent = allAccounts.length;
+  accountCount.textContent = filteredAccounts.length;
 
   // Update page indicator
   pageIndicator.textContent = `${accountCurrentPage} / ${totalPages}`;
 
-  // Enable or disable buttons
+  // Enable or disable pagination buttons
   prevPage.disabled = accountCurrentPage === 1;
   nextPage.disabled = accountCurrentPage === totalPages;
 }
 
-// Previous page
+// SEARCH ACCOUNTS
+
+searchInput.addEventListener("input", filterAccounts);
+
+// ROLE FILTER BUTTONS
+
+allButton.addEventListener("click", () => {
+  currentRole = "all";
+  updateActiveButton(allButton);
+  filterAccounts();
+});
+
+adminButton.addEventListener("click", () => {
+  currentRole = "admin";
+  updateActiveButton(adminButton);
+  filterAccounts();
+});
+
+managerButton.addEventListener("click", () => {
+  currentRole = "manager";
+  updateActiveButton(managerButton);
+  filterAccounts();
+});
+
+employeeButton.addEventListener("click", () => {
+  currentRole = "employee";
+  updateActiveButton(employeeButton);
+  filterAccounts();
+});
+
+// PREVIOUS PAGE
+
 prevPage.addEventListener("click", () => {
   if (accountCurrentPage > 1) {
     accountCurrentPage--;
+
     renderAccounts();
   }
 });
 
-// Next page
+// NEXT PAGE
+
 nextPage.addEventListener("click", () => {
-  const totalPages = Math.ceil(allAccounts.length / accountsPerPage);
+  const totalPages = Math.ceil(filteredAccounts.length / accountsPerPage);
 
   if (accountCurrentPage < totalPages) {
     accountCurrentPage++;
+
     renderAccounts();
   }
 });
 
-// Fetch accounts from database
+// FETCH ACCOUNTS FROM DATABASE
+
 async function loadAccounts() {
   try {
     const response = await fetch("/api/users");
@@ -122,3 +205,21 @@ async function loadAccounts() {
 }
 
 loadAccounts();
+
+const diagram = document.getElementById("delete-dialog");
+
+accountList.addEventListener("click", (event) => {
+  const deleteButton = event.target.closest("#dl-btn-dia");
+
+  if (!deleteButton) return;
+
+  diagram.showModal();
+});
+
+const noDelete = document.getElementById("no-delete");
+
+noDelete.addEventListener("click", () => {
+  diagram.close();
+});
+
+/* registrition*/

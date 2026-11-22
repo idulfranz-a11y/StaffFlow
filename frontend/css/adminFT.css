@@ -280,6 +280,116 @@
 .inactive-dot {
   background-color: #9ba9a2;
 }
+
+/*ambot nalanng*/
+.kahon-2 {
+  margin-top: 9%;
+  margin-left: 8%;
+  height: 36rem;
+  width: 85%;
+  background-color: white;
+  border-radius: 30px;
+  box-shadow: 0 0 20px rgba(18, 54, 43, 0.04);
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.registration-labels,
+.registration-row {
+  width: 90%;
+  margin-left: 5%;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1.2fr 0.8fr 1.5fr;
+  align-items: center;
+  gap: 15px;
+}
+
+.registration-labels {
+  margin-top: 20px;
+  padding: 12px 18px;
+  color: #526e63;
+  font-size: 19px;
+  font-weight: 600;
+}
+
+.registration-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.registration-row {
+  padding: 12px 18px;
+  min-height: 85px;
+  box-sizing: border-box;
+  background-color: #f2f6f3;
+  border: 1px solid #dce5df;
+  border-radius: 12px;
+  font-family: "Inter", system-ui, sans-serif;
+}
+
+.registration-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.registration-initials {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #dce9df;
+  color: #183e36;
+  font-weight: 600;
+}
+
+.registration-name,
+.requested-role,
+.registration-date,
+.registration-status {
+  margin: 0;
+  font-size: 15px;
+  color: #183e36;
+}
+
+.registration-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.registration-actions button {
+  padding: 7px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+.approve-request {
+  background-color: #1f825f;
+  color: white;
+  border: 1px solid #15803d;
+  height: 39px;
+  width: 121px;
+}
+.approve-request:hover {
+  background-color: #2ca95a;
+}
+.reject-request {
+  background-color: transparent;
+  color: #dc2626;
+  border: 1px solid #dc2626;
+  height: 39px;
+  width: 121px;
+}
+.reject-request:hover {
+  color: white;
+  background-color: #dc2626;
+}
 /*Registration*/
 .kahon {
   margin-top: 6%;
@@ -621,4 +731,51 @@
 #page-indicator {
   font-size: 14px;
   font-weight: 600;
+}
+.delete-diagram {
+  font-family: "Inter", system-ui, sans-serif;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid #075c45;
+  height: 300px;
+  border-radius: 15px;
+  width: 35%;
+}
+.delete-diagram::backdrop {
+  background: rgba(24, 62, 54, 0.55);
+  backdrop-filter: blur(4px);
+}
+.delete-diagram h1 {
+  margin-top: 8%;
+  margin-left: 5%;
+  font-size: 28px;
+}
+.delete-diagram p {
+  margin-left: 10%;
+  margin-top: -2%;
+}
+.delete-diagram button {
+  height: 40px;
+  width: 120px;
+  border-radius: 12px;
+}
+.choices-delete-acc {
+  margin-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+#yes-delete-acc {
+  border: 1px solid rgb(236, 134, 134);
+  background-color: rgb(171, 52, 52);
+  color: white;
+}
+#yes-delete-acc:hover {
+  border: 1px solid rgb(236, 134, 134);
+  background-color: rgb(205, 82, 82);
+  color: white;
 }

@@ -72,10 +72,41 @@
       </div>
     </div>
     <main class="main-admin">
-      <div class="kahon">
+      <div class="kahon-2">
         <div class="upper-stuff">
           <h2 class="header-registration">Registration Requests</h2>
-         
+          <span id="pending-count">0 Pending</span>
+        </div>
+
+        <div class="registration-labels">
+          <span>Name</span>
+          <span>Requested Role</span>
+          <span>Date Submitted</span>
+          <span>Status</span>
+          <span>Actions</span>
+        </div>
+
+        <div class="registration-list" id="registration-list">
+          <template id="registration-template">
+            <div class="registration-row">
+              <div class="registration-user">
+                <div class="registration-initials"></div>
+                <p class="registration-name"></p>
+              </div>
+
+              <p class="requested-role"></p>
+
+              <p class="registration-date"></p>
+
+              <p class="registration-status">Pending</p>
+
+              <div class="registration-actions">
+                <button type="button" class="approve-request">Approve</button>
+
+                <button type="button" class="reject-request">Reject</button>
+              </div>
+            </div>
+          </template>
         </div>
       </div>
 
@@ -86,5 +117,6 @@
     </script>
     <script src="../../js/hover.js"></script>
     <script src="../../js/logout.js"></script>
+    <script src="../../js/register.js"></script>
   </body>
 </html>

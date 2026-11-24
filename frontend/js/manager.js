@@ -352,15 +352,3 @@ if (teamList) {
 
   loadTeams();
 }
-// modal sa new task
-const taskmodal = document.getElementById("task-dialog");
-const btnOpen = document.getElementById("new-task");
-const btnOut = document.getElementById("close-task");
-
-btnOpen.addEventListener("click", () => {
-  taskmodal.showModal();
-});
-
-btnOut.addEventListener("click", () => {
-  taskmodal.close();
-});

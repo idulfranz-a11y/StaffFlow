@@ -140,18 +140,19 @@
           </div>
 
           <div class="task-field">
-            <label for="assignee">Select Team Member</label>
-            <select id="assignee" name="assignee">
-              <option value="">Select Member</option>
-            </select>
+            <label>Select Team Members</label>
+
+            <div id="member-selection">
+              <p class="member-placeholder">Select a team first.</p>
+            </div>
           </div>
 
           <div class="task-field">
             <label for="priority">Priority</label>
             <select name="priority" id="priority">
-              <option value="low">Low</option>
-              <option value="medium" selected>Medium</option>
-              <option value="high">High</option>
+              <option value="Low">Low</option>
+              <option value="Medium" selected>Medium</option>
+              <option value="High">High</option>
             </select>
           </div>
 
@@ -175,5 +176,6 @@
     <script src="../../js/manager.js"></script>
     <script src="../../js/hover.js"></script>
     <script src="../../js/logout.js"></script>
+    <script src="../../js/task.js"></script>
   </body>
 </html>

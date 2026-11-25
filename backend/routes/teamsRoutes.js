@@ -11,4 +11,6 @@ router.post("/", teamsController.createTeam);
 router.post("/join", teamsController.joinTeam);
 router.get("/my-team", teamsController.getMyTeam);
 
+router.get("/:teamId/members", teamsController.getTeamMembers);
+
 module.exports = router;

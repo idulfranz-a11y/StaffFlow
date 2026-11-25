@@ -6,6 +6,7 @@ const authRoutes = require("./routes/authRoutes");
 const teamsRoutes = require("./routes/teamsRoutes");
 const usersRoutes = require("./routes/usersRoutes"); // NEW
 const adminRoutes = require("./routes/adminRoutes");
+const tasksRoute = require("./routes/tasksRoute");
 
 const app = express();
 const PORT = 3000;
@@ -37,6 +38,7 @@ app.use("/api", authRoutes);
 app.use("/api/teams", teamsRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/tasks", tasksRoute);
 
 // Home page - Check existing session
 app.get("/", (req, res) => {

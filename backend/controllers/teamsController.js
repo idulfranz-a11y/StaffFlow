@@ -10,15 +10,13 @@ const generateUniqueCode = (callback) => {
     "TEAM-" + crypto.randomBytes(3).toString("hex").toUpperCase();
 
   const sql = `
-      SELECT id FROM teams
-      WHERE access_code = ?
-      LIMIT 1
-    `;
+    SELECT id FROM teams
+    WHERE access_code = ?
+    LIMIT 1
+  `;
 
   db.query(sql, [accessCode], (error, results) => {
-    if (error) {
-      return callback(error);
-    }
+    if (error) return callback(error);
 
     if (results.length > 0) {
       return generateUniqueCode(callback);
@@ -33,7 +31,6 @@ const generateUniqueCode = (callback) => {
 // ============================================
 
 const getTeams = (req, res) => {
-  // Verify manager session
   if (!req.session.user || req.session.user.role !== "manager") {
     return res.status(403).json({
       message: "Only authenticated managers can view teams.",
@@ -43,20 +40,20 @@ const getTeams = (req, res) => {
   const manager_id = req.session.user.id;
 
   const sql = `
-      SELECT
-        t.id,
-        t.team_name AS name,
-        t.access_code AS code,
-        (
-          SELECT COUNT(*)
-          FROM team_members tm
-          WHERE tm.team_id = t.id
-        ) AS members,
-        t.created_at
-      FROM teams t
-      WHERE t.manager_id = ?
-      ORDER BY t.created_at DESC
-    `;
+    SELECT
+      t.id,
+      t.team_name AS name,
+      t.access_code AS code,
+      (
+        SELECT COUNT(*)
+        FROM team_members tm
+        WHERE tm.team_id = t.id
+      ) AS members,
+      t.created_at
+    FROM teams t
+    WHERE t.manager_id = ?
+    ORDER BY t.created_at DESC
+  `;
 
   db.query(sql, [manager_id], (error, results) => {
     if (error) {
@@ -74,11 +71,53 @@ const getTeams = (req, res) => {
 };
 
 // ============================================
+// Get members of a selected team (Manager)
+// ============================================
+
+const getTeamMembers = (req, res) => {
+  if (!req.session.user || req.session.user.role !== "manager") {
+    return res.status(403).json({
+      message: "Only managers can view team members.",
+    });
+  }
+
+  const manager_id = req.session.user.id;
+  const team_id = req.params.teamId;
+
+  const sql = `
+    SELECT
+      u.id,
+      u.first_name,
+      u.last_name,
+      u.role
+    FROM team_members tm
+    JOIN users u ON tm.user_id = u.id
+    JOIN teams t ON tm.team_id = t.id
+    WHERE tm.team_id = ?
+      AND t.manager_id = ?
+    ORDER BY u.first_name ASC
+  `;
+
+  db.query(sql, [team_id, manager_id], (error, results) => {
+    if (error) {
+      console.error("Loading team members failed:", error.message);
+
+      return res.status(500).json({
+        message: "Unable to load team members.",
+      });
+    }
+
+    return res.status(200).json({
+      members: results,
+    });
+  });
+};
+
+// ============================================
 // Create a new team
 // ============================================
 
 const createTeam = (req, res) => {
-  // Verify manager session
   if (!req.session.user || req.session.user.role !== "manager") {
     return res.status(403).json({
       message: "Only authenticated managers can create teams.",
@@ -88,7 +127,6 @@ const createTeam = (req, res) => {
   const manager_id = req.session.user.id;
   const { team_name } = req.body;
 
-  // Validate team name
   if (typeof team_name !== "string" || !team_name.trim()) {
     return res.status(400).json({
       message: "Team name is required.",
@@ -103,12 +141,11 @@ const createTeam = (req, res) => {
     });
   }
 
-  // Verify manager exists
   const checkManager = `
-      SELECT id FROM users
-      WHERE id = ? AND role = 'manager'
-      LIMIT 1
-    `;
+    SELECT id FROM users
+    WHERE id = ? AND role = 'manager'
+    LIMIT 1
+  `;
 
   db.query(checkManager, [manager_id], (error, results) => {
     if (error) {
@@ -125,7 +162,6 @@ const createTeam = (req, res) => {
       });
     }
 
-    // Generate a unique team code
     generateUniqueCode((error, accessCode) => {
       if (error) {
         console.error("Code generation failed:", error.message);
@@ -135,11 +171,10 @@ const createTeam = (req, res) => {
         });
       }
 
-      // Save team in MySQL
       const sql = `
-          INSERT INTO teams (manager_id, team_name, access_code)
-          VALUES (?, ?, ?)
-        `;
+        INSERT INTO teams (manager_id, team_name, access_code)
+        VALUES (?, ?, ?)
+      `;
 
       db.query(sql, [manager_id, cleanName, accessCode], (error, result) => {
         if (error) {
@@ -170,7 +205,6 @@ const createTeam = (req, res) => {
 // ============================================
 
 const joinTeam = (req, res) => {
-  // Verify employee session
   if (!req.session.user || req.session.user.role !== "employee") {
     return res.status(403).json({
       message: "Only authenticated employees can join teams.",
@@ -180,7 +214,6 @@ const joinTeam = (req, res) => {
   const user_id = req.session.user.id;
   const { access_code } = req.body;
 
-  // Validate team code
   if (typeof access_code !== "string" || !access_code.trim()) {
     return res.status(400).json({
       message: "Please enter a team code.",
@@ -189,17 +222,17 @@ const joinTeam = (req, res) => {
 
   const cleanCode = access_code.trim().toUpperCase();
 
-  // Find team using its access code
   const findTeam = `
-      SELECT id, team_name
-      FROM teams
-      WHERE access_code = ?
-      LIMIT 1
-    `;
+    SELECT id, team_name
+    FROM teams
+    WHERE access_code = ?
+    LIMIT 1
+  `;
 
   db.query(findTeam, [cleanCode], (error, results) => {
     if (error) {
       console.error("Team lookup failed:", error.message);
+
       return res.status(500).json({
         message: "Something went wrong.",
       });
@@ -213,17 +246,17 @@ const joinTeam = (req, res) => {
 
     const team = results[0];
 
-    // Check if employee already belongs to a team
     const checkMembership = `
-        SELECT team_id
-        FROM team_members
-        WHERE user_id = ?
-        LIMIT 1
-      `;
+      SELECT team_id
+      FROM team_members
+      WHERE user_id = ?
+      LIMIT 1
+    `;
 
     db.query(checkMembership, [user_id], (error, membership) => {
       if (error) {
         console.error("Membership check failed:", error.message);
+
         return res.status(500).json({
           message: "Unable to verify your team membership.",
         });
@@ -235,15 +268,15 @@ const joinTeam = (req, res) => {
         });
       }
 
-      // Add employee to the team
       const insertMember = `
-          INSERT INTO team_members (team_id, user_id)
-          VALUES (?, ?)
-        `;
+        INSERT INTO team_members (team_id, user_id)
+        VALUES (?, ?)
+      `;
 
       db.query(insertMember, [team.id, user_id], (error) => {
         if (error) {
           console.error("Joining team failed:", error.message);
+
           return res.status(500).json({
             message: "Unable to join team.",
           });
@@ -266,7 +299,6 @@ const joinTeam = (req, res) => {
 // ============================================
 
 const getMyTeam = (req, res) => {
-  // Verify employee session
   if (!req.session.user || req.session.user.role !== "employee") {
     return res.status(403).json({
       message: "Only authenticated employees can view their team.",
@@ -333,6 +365,7 @@ const getMyTeam = (req, res) => {
 
 module.exports = {
   getTeams,
+  getTeamMembers,
   createTeam,
   joinTeam,
   getMyTeam,

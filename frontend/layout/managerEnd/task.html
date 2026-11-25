@@ -98,6 +98,25 @@
           <input type="search" placeholder="Search" />
           <button id="new-task">+ New Task</button>
         </div>
+
+        <div class="allcreated-tasks">
+          <table class="task-table">
+            <thead>
+              <tr>
+                <th>Task Name</th>
+                <th>Assignee</th>
+                <th>Deadline</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody id="task-list">
+              <!-- JavaScript will display tasks here -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <dialog id="task-dialog" class="task-dialog">
@@ -111,62 +130,151 @@
             &times;
           </button>
         </div>
-        <div class="fill-up-area">
-          <div class="task-title">
-            <label for="title">Task Title</label>
-            <input
-              type="text"
-              id="title"
-              placeholder="e.g. Prepare weekly report"
-            />
-          </div>
+        <form id="create-task-form" class="fill-upare">
+          <div class="fill-up-area">
+            <div class="task-title">
+              <label for="title">Task Title</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                placeholder="e.g. Prepare weekly report"
+                required
+              />
+            </div>
 
-          <div class="description-box-mytask">
-            <label for="description">Description</label>
-            <textarea
-              id="description"
-              name="description"
-              placeholder="Add details so your team knows what to do"
-            ></textarea>
-          </div>
-        </div>
-
-        <div class="assigning-area">
-          <div class="task-field">
-            <label for="team">Team</label>
-            <select id="team" name="team">
-              <option value="">Select Team</option>
-            </select>
-          </div>
-
-          <div class="task-field">
-            <label>Select Team Members</label>
-
-            <div id="member-selection">
-              <p class="member-placeholder">Select a team first.</p>
+            <div class="description-box-mytask">
+              <label for="description">Description</label>
+              <textarea
+                id="description"
+                name="description"
+                placeholder="Add details so your team knows what to do"
+              ></textarea>
             </div>
           </div>
 
-          <div class="task-field">
-            <label for="priority">Priority</label>
-            <select name="priority" id="priority">
-              <option value="Low">Low</option>
-              <option value="Medium" selected>Medium</option>
-              <option value="High">High</option>
-            </select>
+          <div class="assigning-area">
+            <div class="task-field">
+              <label for="team">Team</label>
+              <select id="team" name="team">
+                <option value="">Select Team</option>
+              </select>
+            </div>
+
+            <div class="task-field">
+              <label>Select Team Members</label>
+
+              <div id="member-selection">
+                <p class="member-placeholder">Select a team first.</p>
+              </div>
+            </div>
+
+            <div class="task-field">
+              <label for="priority">Priority</label>
+              <select name="priority" id="priority">
+                <option value="Low">Low</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+
+            <div class="task-field">
+              <label for="deadline">Due Date</label>
+              <input type="date" id="deadline" name="deadline" required />
+            </div>
+          </div>
+          <div class="attach-file-area">
+            <label for="">
+              <b>File Attachment</b> <span>(optional)</span></label
+            >
+            <div class="box-sa-file">
+              <input id="input-file" type="file" />
+              <button type="button">remove</button>
+            </div>
+          </div>
+          <div class="task-dialog-footer">
+            <button type="submit" id="create-task-btn">Create Task</button>
+          </div>
+        </form>
+      </dialog>
+
+      <dialog id="task-details-dialog" class="task-details-dialog">
+        <!-- Header -->
+        <div class="details-header">
+          <div>
+            <h2>Task Details</h2>
+            <p id="details-task-id">TASK-0001</p>
           </div>
 
-          <div class="task-field">
-            <label for="deadline">Due Date</label>
-            <input type="date" id="deadline" name="deadline" required />
-          </div>
+          <button type="button" id="close-details">&times;</button>
         </div>
-        <div class="attach-file-area">
-          <label for=""> <b>File Attachment</b> <span>(optional)</span></label>
-          <div class="box-sa-file">
-            <input id="input-file" type="file" />
-            <button>remove</button>
-          </div>
+
+        <!-- Task Information -->
+        <div class="details-content">
+          <section class="details-section">
+            <h3>Task Information</h3>
+
+            <h2 id="details-title">Design Login Page</h2>
+
+            <p id="details-description">
+              Create and finalize the login page design for StaffFlow.
+            </p>
+
+            <div class="details-meta">
+              <div>
+                <label>Deadline</label>
+                <p id="details-deadline">November 30, 2026</p>
+              </div>
+
+              <div>
+                <label>Priority</label>
+                <p id="details-priority">High</p>
+              </div>
+
+              <div>
+                <label>Status</label>
+                <p id="details-status">Pending</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Assignees -->
+          <section class="details-section">
+            <h3>Assignees</h3>
+            <div id="details-assignees"></div>
+          </section>
+
+          <!-- Attached File -->
+          <section class="details-section">
+            <h3>Attached File</h3>
+            <div id="details-attachments">
+              <p>No attached files.</p>
+            </div>
+          </section>
+
+          <!-- Feedback and Comments -->
+          <section class="details-section">
+            <h3>Feedback / Comments</h3>
+
+            <div id="details-comments"></div>
+
+            <form id="comment-form">
+              <textarea
+                id="comment-input"
+                placeholder="Write a comment..."
+                required
+              ></textarea>
+
+              <button type="submit">Send Feedback</button>
+            </form>
+          </section>
+
+          <!-- Submitted Work -->
+          <section class="details-section">
+            <h3>Submitted Work</h3>
+
+            <div id="submitted-work"></div>
+          </section>
         </div>
       </dialog>
     </main>

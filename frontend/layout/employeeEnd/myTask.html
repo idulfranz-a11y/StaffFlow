@@ -19,8 +19,8 @@
         <div class="topcircle"></div>
 
         <a href="myTask.html">
-          <img class="stafflow" src="../../image/icon.png" alt="Icon"
-        /></a>
+          <img class="stafflow" src="../../image/icon.png" alt="Icon" />
+        </a>
         <h1 id="StaffFlow" class="stafflow">StaffFlow</h1>
       </div>
       <label id="menu">Menu</label>
@@ -68,6 +68,7 @@
         </div>
       </dialog>
     </div>
+
     <div class="topbar">
       <div class="greetings">
         <strong>Home</strong>
@@ -91,6 +92,7 @@
         </div>
       </div>
     </div>
+
     <main id="myTask-main">
       <div class="box-mytask">
         <div class="mytask-header">
@@ -224,10 +226,35 @@
                 <button type="button" id="add-comment">Send Comment</button>
               </div>
             </section>
+
+            <!-- Work Submission -->
+            <section class="task-section">
+              <h3>Work Submission</h3>
+
+              <div id="submission-status">
+                <p>Not submitted yet.</p>
+              </div>
+
+              <div class="task-input-area">
+                <label for="submission-file">Attach your work</label>
+                <input type="file" id="submission-file" />
+
+                <div id="selected-submission-file"></div>
+
+                <div class="submission-actions">
+                  <button type="button" id="submit-work">Submit Work</button>
+
+                  <button type="button" id="unsubmit-work" hidden>
+                    Unsubmit Work
+                  </button>
+                </div>
+              </div>
+            </section>
           </div>
         </div>
       </div>
     </main>
+
     <script>
       lucide.createIcons();
     </script>

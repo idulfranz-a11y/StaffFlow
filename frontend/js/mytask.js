@@ -11,10 +11,8 @@ const tasks = [
     deadline: "November 27, 2026",
     priority: "High",
     status: "In Progress",
-
     description:
       "Design and improve the login page interface. Ensure that the layout is responsive and follows the approved design guidelines.",
-
     progress: [
       {
         author: "You",
@@ -23,7 +21,6 @@ const tasks = [
         date: "November 23, 2026",
       },
     ],
-
     comments: [
       {
         author: "John Smith",
@@ -32,7 +29,6 @@ const tasks = [
       },
     ],
   },
-
   {
     id: "TASK-002",
     title: "Dashboard Layout",
@@ -41,12 +37,9 @@ const tasks = [
     deadline: "November 29, 2026",
     priority: "Medium",
     status: "Pending",
-
     description:
       "Create a clean and organized dashboard layout. Make sure all dashboard components follow the approved design system.",
-
     progress: [],
-
     comments: [
       {
         author: "Maria Santos",
@@ -55,7 +48,6 @@ const tasks = [
       },
     ],
   },
-
   {
     id: "TASK-003",
     title: "Fix Navigation Bug",
@@ -64,10 +56,8 @@ const tasks = [
     deadline: "December 2, 2026",
     priority: "Low",
     status: "Completed",
-
     description:
       "Identify and fix the sidebar navigation issue. Ensure that navigation works properly across all dashboard pages.",
-
     progress: [
       {
         author: "You",
@@ -75,7 +65,6 @@ const tasks = [
         date: "November 22, 2026",
       },
     ],
-
     comments: [],
   },
   {
@@ -314,6 +303,15 @@ const commentInput = document.getElementById("comment-input");
 const addProgress = document.getElementById("add-progress");
 const addComment = document.getElementById("add-comment");
 
+// Submission elements
+const submissionStatus = document.getElementById("submission-status");
+const submissionFile = document.getElementById("submission-file");
+const selectedSubmissionFile = document.getElementById(
+  "selected-submission-file",
+);
+const submitWork = document.getElementById("submit-work");
+const unsubmitWork = document.getElementById("unsubmit-work");
+
 let selectedTask = null;
 
 // ==================================
@@ -347,34 +345,32 @@ function renderTasks() {
     row.classList.add("mytask-row");
 
     const priorityClass = task.priority.toLowerCase();
-
     const statusClass = task.status.toLowerCase().replace(" ", "-");
 
     row.innerHTML = `
-            <td>
-                <span class="task-name">
-                    ${escapeHTML(task.title)}
-                </span>
-            </td>
+      <td>
+        <span class="task-name">
+          ${escapeHTML(task.title)}
+        </span>
+      </td>
 
-            <td>${escapeHTML(task.assignedBy)}</td>
+      <td>${escapeHTML(task.assignedBy)}</td>
 
-            <td>${escapeHTML(task.deadline)}</td>
+      <td>${escapeHTML(task.deadline)}</td>
 
-            <td>
-                <span class="priority ${priorityClass}">
-                    ${escapeHTML(task.priority)}
-                </span>
-            </td>
+      <td>
+        <span class="priority ${priorityClass}">
+          ${escapeHTML(task.priority)}
+        </span>
+      </td>
 
-            <td>
-                <span class="status ${statusClass}">
-                    ${escapeHTML(task.status)}
-                </span>
-            </td>
-        `;
+      <td>
+        <span class="status ${statusClass}">
+          ${escapeHTML(task.status)}
+        </span>
+      </td>
+    `;
 
-    // Clicking anywhere on the row opens the modal
     row.addEventListener("click", () => {
       openTaskModal(task.id);
     });
@@ -404,15 +400,12 @@ function openTaskModal(taskId) {
   modalDeadline.textContent = selectedTask.deadline;
   modalPriority.textContent = selectedTask.priority;
 
-  // Set current status
   modalStatus.value = selectedTask.status;
 
-  // Display progress and comments
   renderActivity();
+  renderSubmission();
 
-  // Show modal
   taskModal.hidden = false;
-
   document.body.style.overflow = "hidden";
 }
 
@@ -430,14 +423,12 @@ function closeTaskModal() {
 
 closeModal.addEventListener("click", closeTaskModal);
 
-// Close when clicking outside the modal
 taskModal.addEventListener("click", (event) => {
   if (event.target === taskModal) {
     closeTaskModal();
   }
 });
 
-// Close using Escape key
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape" && !taskModal.hidden) {
     closeTaskModal();
@@ -453,7 +444,6 @@ modalStatus.addEventListener("change", () => {
 
   selectedTask.status = modalStatus.value;
 
-  // Immediately update the main table
   renderTasks();
 });
 
@@ -476,10 +466,10 @@ function renderActivity() {
       activity.classList.add("task-activity");
 
       activity.innerHTML = `
-                <strong>${escapeHTML(item.author)}</strong>
-                <p>${escapeHTML(item.message)}</p>
-                <small>${escapeHTML(item.date)}</small>
-            `;
+        <strong>${escapeHTML(item.author)}</strong>
+        <p>${escapeHTML(item.message)}</p>
+        <small>${escapeHTML(item.date)}</small>
+      `;
 
       progressList.appendChild(activity);
     });
@@ -497,10 +487,10 @@ function renderActivity() {
       activity.classList.add("task-activity");
 
       activity.innerHTML = `
-                <strong>${escapeHTML(item.author)}</strong>
-                <p>${escapeHTML(item.message)}</p>
-                <small>${escapeHTML(item.date)}</small>
-            `;
+        <strong>${escapeHTML(item.author)}</strong>
+        <p>${escapeHTML(item.message)}</p>
+        <small>${escapeHTML(item.date)}</small>
+      `;
 
       commentList.appendChild(activity);
     });
@@ -563,6 +553,128 @@ addComment.addEventListener("click", () => {
   commentInput.value = "";
 
   renderActivity();
+});
+
+// ==================================
+// RENDER WORK SUBMISSION
+// ==================================
+
+function renderSubmission() {
+  if (!selectedTask) return;
+
+  // Create submission data if it does not exist yet
+  if (!selectedTask.submission) {
+    selectedTask.submission = {
+      file: null,
+      status: "Not submitted",
+      submittedAt: null,
+    };
+  }
+
+  const submission = selectedTask.submission;
+  const isSubmitted = submission.status === "Submitted";
+
+  // Display submission status
+  submissionStatus.innerHTML = "";
+
+  const statusText = document.createElement("p");
+  statusText.textContent = `Status: ${submission.status}`;
+
+  submissionStatus.appendChild(statusText);
+
+  // Display previously selected file
+  selectedSubmissionFile.textContent = submission.file
+    ? `Selected file: ${submission.file.name}`
+    : "No file selected.";
+
+  // Show the correct buttons
+  submitWork.hidden = isSubmitted;
+  unsubmitWork.hidden = !isSubmitted;
+
+  // Change button label after withdrawal
+  submitWork.textContent =
+    submission.status === "Withdrawn" ? "Submit Work Again" : "Submit Work";
+
+  // Do not allow replacing a file while it is submitted
+  submissionFile.disabled = isSubmitted;
+}
+
+// ==================================
+// SELECT WORK FILE
+// ==================================
+
+submissionFile.addEventListener("change", () => {
+  if (!selectedTask) return;
+
+  const file = submissionFile.files[0];
+
+  if (!file) return;
+
+  if (!selectedTask.submission) {
+    selectedTask.submission = {
+      file: null,
+      status: "Not submitted",
+      submittedAt: null,
+    };
+  }
+
+  // Keep the selected file in temporary task data
+  selectedTask.submission.file = file;
+
+  renderSubmission();
+});
+
+// ==================================
+// SUBMIT WORK
+// ==================================
+
+submitWork.addEventListener("click", () => {
+  if (!selectedTask) return;
+
+  const submission = selectedTask.submission;
+
+  if (!submission || !submission.file) {
+    alert("Please select a file before submitting your work.");
+    return;
+  }
+
+  submission.status = "Submitted";
+
+  submission.submittedAt = new Date().toLocaleString();
+
+  renderSubmission();
+
+  alert("Your work has been submitted successfully.");
+});
+
+// ==================================
+// UNSUBMIT WORK
+// ==================================
+
+unsubmitWork.addEventListener("click", () => {
+  if (!selectedTask) return;
+
+  const submission = selectedTask.submission;
+
+  if (!submission || submission.status !== "Submitted") return;
+
+  const confirmUnsubmit = confirm(
+    "Are you sure you want to unsubmit your work?",
+  );
+
+  if (!confirmUnsubmit) return;
+
+  // Keep the previous file so the employee can submit it again
+  submission.status = "Withdrawn";
+  submission.submittedAt = null;
+
+  // Clear the file input visually.
+  // The previously selected File object remains in submission.file.
+  submissionFile.value = "";
+
+  renderSubmission();
+
+  alert("Your submission has been withdrawn. You can submit it again.");
 });
 
 // ==================================

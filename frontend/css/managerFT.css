@@ -922,8 +922,9 @@ main {
 ========================================= */
 
 .allcreated-tasks {
-  width: 100%;
-  margin-top: 25px;
+  margin-left: 5%;
+  width: 90%;
+  margin-top: 2%;
   overflow-x: auto;
   border: 1px solid #dce5df;
   border-radius: 12px;
@@ -939,8 +940,8 @@ main {
 }
 
 .task-table thead {
-  background: #526e63;
-  color: #ffffff;
+  background: #265641;
+  color: white;
 }
 
 .task-table th {
@@ -949,6 +950,7 @@ main {
   font-size: 13px;
   font-weight: 600;
   white-space: nowrap;
+  color: white;
 }
 
 .task-table td {

@@ -508,8 +508,8 @@ main {
 }
 
 .mytask-table th {
-  background: #edf4ee;
-  color: #526e63;
+  background: #265641;
+  color: white;
   padding: 1rem;
   font-size: 0.8rem;
   font-weight: 600;
@@ -758,6 +758,7 @@ main {
 }
 
 .task-input-area {
+  margin-left: 4%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -817,4 +818,73 @@ main {
     gap: 1rem;
     padding: 1rem;
   }
+}
+
+/* WORK SUBMISSION */
+#submission-status {
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  background-color: #edf4ee;
+  border: 1px solid #dce5df;
+  border-radius: 10px;
+}
+
+#submission-status p {
+  margin: 0;
+  color: #526e63;
+  font-size: 14px;
+}
+
+#submission-file {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px dashed #a8c3ad;
+  border-radius: 8px;
+  background-color: #f8fbf8;
+  color: #183e36;
+}
+
+#selected-submission-file {
+  margin-top: 10px;
+  color: #526e63;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+.submission-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.submission-actions button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #183e36;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submission-actions button:hover {
+  background-color: #2d5e4e;
+}
+
+#unsubmit-work {
+  background-color: #f3e8e7;
+  color: #9b3939;
+}
+
+#unsubmit-work:hover {
+  background-color: #ead5d3;
+}
+
+#unsubmit-work[hidden] {
+  display: none;
 }

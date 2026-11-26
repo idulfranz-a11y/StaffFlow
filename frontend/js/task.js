@@ -728,10 +728,10 @@ function renderSubmittedWork(task) {
         ? `
           <button
             type="button"
-            class="unsubmit-btn"
+            class="return-revision-btn"
             data-task-id="${task.id}"
           >
-            Unsubmit
+            Return for Revision
           </button>
         `
         : `
@@ -746,12 +746,11 @@ function renderSubmittedWork(task) {
 }
 
 // ============================================
-// UNSUBMIT WORK
 // RETURN SUBMISSION FOR REVISION
 // ============================================
 
 submittedWork.addEventListener("click", (event) => {
-  const button = event.target.closest(".unsubmit-btn");
+  const button = event.target.closest(".return-revision-btn");
 
   if (!button) return;
 
@@ -761,26 +760,17 @@ submittedWork.addEventListener("click", (event) => {
 
   if (!task || !task.submission) return;
 
-  const confirmUnsubmit = confirm(
+  const confirmReturn = confirm(
     "Are you sure you want to return this submission for revision?",
   );
 
-  if (!confirmUnsubmit) return;
+  if (!confirmReturn) return;
 
-  // Change submission status
+  // Change submission status only
   task.submission.status = "Returned for revision";
 
-  // Return task to In Progress
-  task.status = "In Progress";
-
-  // Update modal
-  detailsStatus.textContent = task.status;
-
-  // Update submission display
+  // Keep task progress status independent
   renderSubmittedWork(task);
-
-  // Update table
-  renderTaskTable();
 
   alert("The submission has been returned for revision.");
 });

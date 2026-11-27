@@ -408,6 +408,57 @@ const submitWork = (req, res) => {
 };
 
 // ============================================
+// Get Assigned Tasks (Employee)
+// ============================================
+
+const getMyTasks = (req, res) => {
+  console.log("SESSION USER:", req.session.user);
+  // 1. Verify employee session
+  if (!req.session.user || req.session.user.role !== "employee") {
+    return res.status(403).json({
+      message: "Only employees can view assigned tasks.",
+    });
+  }
+
+  const employeeID = req.session.user.id;
+
+  // 2. Retrieve tasks assigned to this employee
+  const query = `
+    SELECT
+      t.id,
+      t.task_id,
+      t.title,
+      t.description,
+      t.deadline,
+      t.priority,
+      t.team_id,
+      CONCAT(manager.first_name, ' ', manager.last_name) AS assignedBy
+    FROM tasks t
+    JOIN task_assignments ta
+      ON t.id = ta.task_record_id
+    JOIN users manager
+      ON t.assigned_by = manager.id
+    WHERE ta.user_id = ?
+    ORDER BY t.deadline ASC
+  `;
+
+  db.query(query, [employeeID], (error, results) => {
+    if (error) {
+      console.error("Employee task retrieval failed:", error.message);
+
+      return res.status(500).json({
+        message: "Unable to retrieve assigned tasks.",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Assigned tasks retrieved successfully.",
+      tasks: results,
+    });
+  });
+};
+
+// ============================================
 // Return Submission for Revision (Manager)
 // ============================================
 
@@ -498,6 +549,69 @@ const returnSubmission = (req, res) => {
       });
     },
   );
+};
+
+// ============================================
+// Get Created Tasks (Manager)
+// ============================================
+
+const getMyCreatedTasks = (req, res) => {
+  // 1. Verify manager session
+  if (!req.session.user || req.session.user.role !== "manager") {
+    return res.status(403).json({
+      message: "Only managers can view their created tasks.",
+    });
+  }
+
+  const managerID = req.session.user.id;
+
+  // 2. Retrieve tasks and their assigned employees
+  const query = `
+    SELECT
+      t.id,
+      t.task_id,
+      t.title,
+      t.description,
+      t.team_id,
+      t.deadline,
+      t.priority,
+
+      COALESCE(
+        (
+          SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+              'id', u.id,
+              'first_name', u.first_name,
+              'last_name', u.last_name,
+              'status', ta.status
+            )
+          )
+          FROM task_assignments ta
+          INNER JOIN users u ON u.id = ta.user_id
+          WHERE ta.task_record_id = t.id
+        ),
+        JSON_ARRAY()
+      ) AS assigned_members
+
+    FROM tasks t
+    WHERE t.assigned_by = ?
+    ORDER BY t.deadline ASC
+  `;
+
+  db.query(query, [managerID], (error, results) => {
+    if (error) {
+      console.error("Manager task retrieval failed:", error.message);
+
+      return res.status(500).json({
+        message: "Unable to retrieve created tasks.",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Created tasks retrieved successfully.",
+      tasks: results,
+    });
+  });
 };
 
 // ============================================
@@ -652,13 +766,184 @@ const previewSubmission = (req, res) => {
 };
 
 // ============================================
-// Export Controllers
+// Check whether the logged-in user can access a task
 // ============================================
 
+const findAccessibleTask = (req, callback) => {
+  const { taskId } = req.params;
+  const { id, role } = req.session.user;
+
+  let sql;
+  let values;
+
+  if (role === "manager") {
+    sql = `
+      SELECT id
+      FROM tasks
+      WHERE task_id = ? AND assigned_by = ?
+    `;
+    values = [taskId, id];
+  } else if (role === "employee") {
+    sql = `
+      SELECT t.id
+      FROM tasks t
+      INNER JOIN task_assignments ta
+        ON ta.task_record_id = t.id
+      WHERE t.task_id = ? AND ta.user_id = ?
+    `;
+    values = [taskId, id];
+  } else {
+    return callback(null, null);
+  }
+
+  db.query(sql, values, (err, results) => {
+    if (err) return callback(err);
+
+    callback(null, results[0] || null);
+  });
+};
+
+// ============================================
+// Get Shared Task Comments
+// ============================================
+
+const getTaskComments = (req, res) => {
+  if (
+    !req.session.user ||
+    !["manager", "employee"].includes(req.session.user.role)
+  ) {
+    return res.status(403).json({
+      message: "You are not authorized to view comments.",
+    });
+  }
+
+  findAccessibleTask(req, (err, task) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error." });
+    }
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found or access denied.",
+      });
+    }
+
+    const sql = `
+      SELECT
+        c.id,
+        c.comment,
+        c.created_at,
+        u.first_name,
+        u.last_name,
+        u.role
+      FROM task_comments c
+      INNER JOIN users u ON u.id = c.user_id
+      WHERE c.task_record_id = ?
+      ORDER BY c.created_at ASC, c.id ASC
+    `;
+
+    db.query(sql, [task.id], (err, results) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Failed to retrieve comments.",
+        });
+      }
+
+      res.json(results);
+    });
+  });
+};
+
+// ============================================
+// Create Shared Task Comment
+// ============================================
+
+const createTaskComment = (req, res) => {
+  if (
+    !req.session.user ||
+    !["manager", "employee"].includes(req.session.user.role)
+  ) {
+    return res.status(403).json({
+      message: "You are not authorized to send comments.",
+    });
+  }
+
+  const comment = req.body.comment?.trim();
+
+  if (!comment) {
+    return res.status(400).json({
+      message: "Comment cannot be empty.",
+    });
+  }
+
+  if (comment.length > 2000) {
+    return res.status(400).json({
+      message: "Comment cannot exceed 2000 characters.",
+    });
+  }
+
+  findAccessibleTask(req, (err, task) => {
+    if (err) {
+      return res.status(500).json({ message: "Database error." });
+    }
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found or access denied.",
+      });
+    }
+
+    const userId = req.session.user.id;
+
+    const insertSql = `
+      INSERT INTO task_comments (task_record_id, user_id, comment)
+      VALUES (?, ?, ?)
+    `;
+
+    db.query(insertSql, [task.id, userId, comment], (err, result) => {
+      if (err) {
+        return res.status(500).json({
+          message: "Failed to save comment.",
+        });
+      }
+
+      const selectSql = `
+        SELECT
+          c.id,
+          c.comment,
+          c.created_at,
+          u.first_name,
+          u.last_name,
+          u.role
+        FROM task_comments c
+        INNER JOIN users u ON u.id = c.user_id
+        WHERE c.id = ?
+      `;
+
+      db.query(selectSql, [result.insertId], (err, results) => {
+        if (err) {
+          return res.status(500).json({
+            message: "Comment was saved, but could not be retrieved.",
+          });
+        }
+
+        res.status(201).json(results[0]);
+      });
+    });
+  });
+};
+
+// ============================================
+// Export Controllers
+// ============================================
 module.exports = {
   createTask,
+  getMyTasks,
+  getMyCreatedTasks,
   submitWork,
   returnSubmission,
   getSubmissions,
   previewSubmission,
+  getTaskComments,
+  createTaskComment,
 };

@@ -25,4 +25,11 @@ router.get(
   "/:taskId/submissions/:versionId/preview",
   taskController.previewSubmission,
 );
+
+router.get("/my-tasks", taskController.getMyTasks);
+
+router.get("/my-created-tasks", taskController.getMyCreatedTasks);
+router.get("/:taskId/comments", taskController.getTaskComments);
+router.post("/:taskId/comments", taskController.createTaskComment);
+
 module.exports = router;

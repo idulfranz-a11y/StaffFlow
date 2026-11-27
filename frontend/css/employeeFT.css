@@ -594,6 +594,7 @@ main {
 .task-modal-overlay {
   position: fixed;
   inset: 0;
+  z-index: 9999;
   background: rgba(10, 25, 18, 0.55);
   display: flex;
   justify-content: center;
@@ -604,7 +605,6 @@ main {
 .task-modal-overlay[hidden] {
   display: none;
 }
-
 /* ==============================
    MODAL CONTAINER
 ============================== */

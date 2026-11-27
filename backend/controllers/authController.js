@@ -58,20 +58,32 @@ const login = (req, res) => {
         });
       }
 
+      // Create employee/manager session
       req.session.user = {
         id: user.id,
         role: user.role,
       };
 
-      return res.status(200).json({
-        message: "Login successful!",
-        user: {
-          id: user.id,
-          first_name: user.first_name,
-          last_name: user.last_name,
-          id_number: user.id_number,
-          role: user.role,
-        },
+      // Save session before sending login response
+      req.session.save((sessionError) => {
+        if (sessionError) {
+          console.error("Session save failed:", sessionError.message);
+
+          return res.status(500).json({
+            message: "Unable to establish login session.",
+          });
+        }
+
+        return res.status(200).json({
+          message: "Login successful!",
+          user: {
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            id_number: user.id_number,
+            role: user.role,
+          },
+        });
       });
     } catch (error) {
       console.error("Password comparison failed:", error.message);
@@ -102,6 +114,7 @@ const register = async (req, res) => {
       message: "Please provide all required information.",
     });
   }
+
   const allowedRoles = ["manager", "employee"];
 
   if (!allowedRoles.includes(role)) {
@@ -115,7 +128,7 @@ const register = async (req, res) => {
     FROM users
     WHERE id_number = ?
     LIMIT 1
-    `;
+  `;
 
   db.query(sql, [id_number.trim()], async (error, results) => {
     if (error) {
@@ -136,10 +149,10 @@ const register = async (req, res) => {
       const passwordHash = await bcrypt.hash(password, 10);
 
       const insertSql = `
-  INSERT INTO users
-  (first_name, last_name, id_number, password_hash, role, status)
-  VALUES (?, ?, ?, ?, ?, 'pending')
-`;
+        INSERT INTO users
+        (first_name, last_name, id_number, password_hash, role, status)
+        VALUES (?, ?, ?, ?, ?, 'pending')
+      `;
 
       db.query(
         insertSql,

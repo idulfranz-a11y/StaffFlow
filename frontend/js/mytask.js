@@ -2,277 +2,6 @@
 // TEMPORARY TASK DATA
 // ==================================
 
-const tasks = [
-  {
-    id: "TASK-001",
-    title: "Login Page Design",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "November 27, 2026",
-    priority: "High",
-    status: "In Progress",
-    description:
-      "Design and improve the login page interface. Ensure that the layout is responsive and follows the approved design guidelines.",
-    progress: [
-      {
-        author: "You",
-        message:
-          "Completed the initial login page structure. Currently working on responsive styling.",
-        date: "November 23, 2026",
-      },
-    ],
-    comments: [
-      {
-        author: "John Smith",
-        message: "Please prioritize the mobile layout.",
-        date: "November 23, 2026",
-      },
-    ],
-  },
-  {
-    id: "TASK-002",
-    title: "Dashboard Layout",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "November 29, 2026",
-    priority: "Medium",
-    status: "Pending",
-    description:
-      "Create a clean and organized dashboard layout. Make sure all dashboard components follow the approved design system.",
-    progress: [],
-    comments: [
-      {
-        author: "Maria Santos",
-        message: "Please review the Figma reference before starting.",
-        date: "November 24, 2026",
-      },
-    ],
-  },
-  {
-    id: "TASK-003",
-    title: "Fix Navigation Bug",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "December 2, 2026",
-    priority: "Low",
-    status: "Completed",
-    description:
-      "Identify and fix the sidebar navigation issue. Ensure that navigation works properly across all dashboard pages.",
-    progress: [
-      {
-        author: "You",
-        message: "Fixed the navigation issue and tested all sidebar links.",
-        date: "November 22, 2026",
-      },
-    ],
-    comments: [],
-  },
-  {
-    id: "TASK-004",
-    title: "User Profile Page",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Nov 28, 2026",
-    priority: "High",
-    status: "Pending",
-    description: "Create the user profile page layout.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-005",
-    title: "Database Connection",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Nov 30, 2026",
-    priority: "High",
-    status: "In Progress",
-    description: "Connect the application to the MySQL database.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-006",
-    title: "Fix Login Validation",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 1, 2026",
-    priority: "Medium",
-    status: "Pending",
-    description: "Review and fix login form validation.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-007",
-    title: "Mobile Navigation",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Dec 2, 2026",
-    priority: "Low",
-    status: "Completed",
-    description: "Improve the navigation layout on smaller screens.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-008",
-    title: "Employee Dashboard",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 3, 2026",
-    priority: "High",
-    status: "In Progress",
-    description: "Build the employee dashboard interface.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-009",
-    title: "Update Team Settings",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Dec 4, 2026",
-    priority: "Medium",
-    status: "Pending",
-    description: "Update the team settings page.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-010",
-    title: "Notification System",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 5, 2026",
-    priority: "High",
-    status: "In Progress",
-    description: "Implement notifications for task updates.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-011",
-    title: "Improve Button Styles",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Dec 6, 2026",
-    priority: "Low",
-    status: "Completed",
-    description: "Standardize button styles across the application.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-012",
-    title: "Task Search Feature",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 7, 2026",
-    priority: "Medium",
-    status: "Pending",
-    description: "Add search functionality to the task list.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-013",
-    title: "Admin Dashboard Cards",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Dec 8, 2026",
-    priority: "High",
-    status: "In Progress",
-    description: "Design dashboard cards for administrators.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-014",
-    title: "Session Management",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 9, 2026",
-    priority: "High",
-    status: "Pending",
-    description: "Improve user session handling.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-015",
-    title: "Responsive Table Layout",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Dec 10, 2026",
-    priority: "Medium",
-    status: "Completed",
-    description: "Make tables easier to use on smaller screens.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-016",
-    title: "Password Reset",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 11, 2026",
-    priority: "High",
-    status: "In Progress",
-    description: "Implement the password reset process.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-017",
-    title: "Design Activity Timeline",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Dec 12, 2026",
-    priority: "Low",
-    status: "Pending",
-    description: "Create a visual timeline for task activities.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-018",
-    title: "API Error Handling",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 13, 2026",
-    priority: "Medium",
-    status: "In Progress",
-    description: "Improve API error messages and handling.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-019",
-    title: "Review Dashboard UI",
-    assignedBy: "Maria Santos",
-    team: "Design Team",
-    deadline: "Dec 14, 2026",
-    priority: "Low",
-    status: "Pending",
-    description: "Review spacing, colors, and alignment.",
-    progress: [],
-    comments: [],
-  },
-  {
-    id: "TASK-020",
-    title: "Test Account Permissions",
-    assignedBy: "John Smith",
-    team: "Development Team",
-    deadline: "Dec 15, 2026",
-    priority: "High",
-    status: "Completed",
-    description: "Verify access permissions for each user role.",
-    progress: [],
-    comments: [],
-  },
-];
-
 // ==================================
 // GET HTML ELEMENTS
 // ==================================
@@ -311,7 +40,7 @@ const selectedSubmissionFile = document.getElementById(
 );
 const submitWork = document.getElementById("submit-work");
 const unsubmitWork = document.getElementById("unsubmit-work");
-
+let tasks = [];
 let selectedTask = null;
 
 // ==================================
@@ -678,7 +407,40 @@ unsubmitWork.addEventListener("click", () => {
 });
 
 // ==================================
+// LOAD TASKS FROM DATABASE
+// ==================================
+
+async function loadTasks() {
+  try {
+    const response = await fetch("/api/tasks/my-tasks");
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to load tasks.");
+    }
+
+    tasks = data.tasks.map((task) => ({
+      ...task,
+      status: "Pending",
+      team: `Team ${task.team_id}`,
+      progress: [],
+      comments: [],
+      submission: {
+        file: null,
+        status: "Not submitted",
+        submittedAt: null,
+      },
+    }));
+
+    renderTasks();
+  } catch (error) {
+    console.error("Task loading failed:", error);
+    taskList.innerHTML = "<tr><td colspan='5'>Unable to load tasks.</td></tr>";
+  }
+}
+
+// ==================================
 // INITIALIZE
 // ==================================
 
-renderTasks();
+loadTasks();

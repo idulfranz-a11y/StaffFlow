@@ -32,4 +32,15 @@ router.get("/my-created-tasks", taskController.getMyCreatedTasks);
 router.get("/:taskId/comments", taskController.getTaskComments);
 router.post("/:taskId/comments", taskController.createTaskComment);
 
+// Employee submits a progress update
+router.post("/:taskId/progress", taskController.createTaskProgress);
+
+// Manager views progress updates
+router.get("/:taskId/progress", taskController.getTaskProgress);
+router.get(
+  "/:taskId/submissions/:versionId/download",
+  taskController.downloadSubmission,
+);
+router.patch("/:taskId/status", taskController.updateTaskStatus);
+
 module.exports = router;

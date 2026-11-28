@@ -411,8 +411,11 @@ const submitWork = (req, res) => {
 // Get Assigned Tasks (Employee)
 // ============================================
 
+// ============================================
+// Get Assigned Tasks (Employee)
+// ============================================
+
 const getMyTasks = (req, res) => {
-  console.log("SESSION USER:", req.session.user);
   // 1. Verify employee session
   if (!req.session.user || req.session.user.role !== "employee") {
     return res.status(403).json({
@@ -422,7 +425,7 @@ const getMyTasks = (req, res) => {
 
   const employeeID = req.session.user.id;
 
-  // 2. Retrieve tasks assigned to this employee
+  // 2. Retrieve assigned tasks, their saved status, and latest submission
   const query = `
     SELECT
       t.id,
@@ -432,12 +435,34 @@ const getMyTasks = (req, res) => {
       t.deadline,
       t.priority,
       t.team_id,
-      CONCAT(manager.first_name, ' ', manager.last_name) AS assignedBy
+      ta.status AS status,
+      CONCAT(manager.first_name, ' ', manager.last_name) AS assignedBy,
+
+      sv.id AS submission_version_id,
+      sv.file_name AS submission_file_name,
+      sv.status AS submission_status,
+      sv.submitted_at
+
     FROM tasks t
+
     JOIN task_assignments ta
       ON t.id = ta.task_record_id
+
     JOIN users manager
       ON t.assigned_by = manager.id
+
+    LEFT JOIN task_submissions ts
+      ON ta.id = ts.assignment_id
+
+    LEFT JOIN submission_versions sv
+      ON sv.id = (
+        SELECT sv2.id
+        FROM submission_versions sv2
+        WHERE sv2.submission_id = ts.id
+        ORDER BY sv2.id DESC
+        LIMIT 1
+      )
+
     WHERE ta.user_id = ?
     ORDER BY t.deadline ASC
   `;
@@ -934,8 +959,317 @@ const createTaskComment = (req, res) => {
 };
 
 // ============================================
+// Create Progress Update (Employee)
+// ============================================
+
+const createTaskProgress = (req, res) => {
+  if (!req.session.user || req.session.user.role !== "employee") {
+    return res.status(403).json({
+      message: "Only employees can submit progress updates.",
+    });
+  }
+
+  const employeeID = req.session.user.id;
+  const taskID = req.params.taskId;
+  const progressUpdate = req.body.progress_update?.trim();
+
+  if (!progressUpdate) {
+    return res.status(400).json({
+      message: "Progress update cannot be empty.",
+    });
+  }
+
+  if (progressUpdate.length > 2000) {
+    return res.status(400).json({
+      message: "Progress update cannot exceed 2000 characters.",
+    });
+  }
+
+  const checkAssignment = `
+    SELECT ta.id AS assignment_id
+    FROM tasks t
+    INNER JOIN task_assignments ta
+      ON ta.task_record_id = t.id
+    WHERE t.task_id = ?
+      AND ta.user_id = ?
+    LIMIT 1
+  `;
+
+  db.query(checkAssignment, [taskID, employeeID], (error, results) => {
+    if (error) {
+      console.error("Progress assignment check failed:", error.message);
+
+      return res.status(500).json({
+        message: "Unable to verify task assignment.",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(403).json({
+        message: "You are not assigned to this task.",
+      });
+    }
+
+    const assignmentID = results[0].assignment_id;
+
+    const insertSQL = `
+      INSERT INTO task_progress (
+        assignment_id,
+        user_id,
+        progress_update
+      )
+      VALUES (?, ?, ?)
+    `;
+
+    db.query(
+      insertSQL,
+      [assignmentID, employeeID, progressUpdate],
+      (error, result) => {
+        if (error) {
+          console.error("Progress saving failed:", error.message);
+
+          return res.status(500).json({
+            message: "Unable to save progress update.",
+          });
+        }
+
+        return res.status(201).json({
+          message: "Progress update saved successfully.",
+          id: result.insertId,
+        });
+      },
+    );
+  });
+};
+
+// ============================================
+// Get Progress Updates (Manager - View Only)
+// ============================================
+
+const getTaskProgress = (req, res) => {
+  if (!req.session.user || req.session.user.role !== "manager") {
+    return res.status(403).json({
+      message: "Only managers can view these progress updates.",
+    });
+  }
+
+  findAccessibleTask(req, (error, task) => {
+    if (error) {
+      console.error("Progress task verification failed:", error.message);
+
+      return res.status(500).json({
+        message: "Database error.",
+      });
+    }
+
+    if (!task) {
+      return res.status(404).json({
+        message: "Task not found or access denied.",
+      });
+    }
+
+    const sql = `
+      SELECT
+        tp.id,
+        tp.progress_update,
+        tp.created_at,
+        u.first_name,
+        u.last_name
+      FROM task_progress tp
+      INNER JOIN task_assignments ta
+        ON ta.id = tp.assignment_id
+      INNER JOIN users u
+        ON u.id = tp.user_id
+      WHERE ta.task_record_id = ?
+        AND ta.user_id = tp.user_id
+      ORDER BY tp.created_at ASC, tp.id ASC
+    `;
+
+    db.query(sql, [task.id], (error, results) => {
+      if (error) {
+        console.error("Progress retrieval failed:", error.message);
+
+        return res.status(500).json({
+          message: "Unable to retrieve progress updates.",
+        });
+      }
+
+      return res.json(results);
+    });
+  });
+};
+
+// ============================================
 // Export Controllers
 // ============================================
+
+// ============================================
+// Download Submission (Manager)
+// ============================================
+
+const downloadSubmission = (req, res) => {
+  // 1. Verify manager session
+  if (!req.session.user || req.session.user.role !== "manager") {
+    return res.status(403).json({
+      message: "Only managers can download submissions.",
+    });
+  }
+
+  const managerID = req.session.user.id;
+  const { taskId, versionId } = req.params;
+
+  // 2. Verify task ownership and retrieve file
+  const query = `
+    SELECT sv.file_path, sv.file_name
+    FROM submission_versions sv
+    JOIN task_submissions ts
+      ON sv.submission_id = ts.id
+    JOIN task_assignments ta
+      ON ts.assignment_id = ta.id
+    JOIN tasks t
+      ON ta.task_record_id = t.id
+    WHERE sv.id = ?
+      AND t.task_id = ?
+      AND t.assigned_by = ?
+    LIMIT 1
+  `;
+
+  db.query(query, [versionId, taskId, managerID], (error, results) => {
+    if (error) {
+      console.error("Download verification failed:", error.message);
+
+      return res.status(500).json({
+        message: "Unable to retrieve submission.",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "Submission not found.",
+      });
+    }
+
+    const file = results[0];
+    const extension = path.extname(file.file_name).toLowerCase();
+
+    // 3. Allow only supported document formats
+    const allowedExtensions = [
+      ".doc",
+      ".docx",
+      ".xls",
+      ".xlsx",
+      ".ppt",
+      ".pptx",
+    ];
+
+    if (!allowedExtensions.includes(extension)) {
+      return res.status(415).json({
+        message: "This file type cannot be downloaded through this endpoint.",
+      });
+    }
+
+    // 4. Verify file location
+    const uploadDirectory = path.resolve(__dirname, "../uploads/submissions");
+
+    const filePath = path.resolve(file.file_path);
+    const relativePath = path.relative(uploadDirectory, filePath);
+
+    if (
+      relativePath === ".." ||
+      relativePath.startsWith(`..${path.sep}`) ||
+      path.isAbsolute(relativePath)
+    ) {
+      return res.status(403).json({
+        message: "Invalid file location.",
+      });
+    }
+
+    // 5. Download the original file
+    const originalFileName = path.basename(file.file_name.replace(/\\/g, "/"));
+
+    return res.download(filePath, originalFileName, (error) => {
+      if (error && !res.headersSent) {
+        console.error("File download failed:", error.message);
+
+        return res.status(404).json({
+          message: "The submitted file could not be downloaded.",
+        });
+      }
+    });
+  });
+};
+
+// ============================================
+// Update Employee Task Status
+// ============================================
+
+const updateTaskStatus = (req, res) => {
+  // Verify employee session
+  if (!req.session.user || req.session.user.role !== "employee") {
+    return res.status(403).json({
+      message: "Only employees can update their task status.",
+    });
+  }
+
+  const employeeID = req.session.user.id;
+  const taskId = req.params.taskId;
+  const { status } = req.body;
+
+  const allowedStatuses = ["Pending", "In Progress", "Completed"];
+
+  if (!allowedStatuses.includes(status)) {
+    return res.status(400).json({
+      message: "Invalid task status.",
+    });
+  }
+
+  // Find the employee's assignment
+  const findAssignmentQuery = `
+    SELECT ta.id
+    FROM task_assignments ta
+    JOIN tasks t ON t.id = ta.task_record_id
+    WHERE t.task_id = ? AND ta.user_id = ?
+  `;
+
+  db.query(findAssignmentQuery, [taskId, employeeID], (error, results) => {
+    if (error) {
+      console.error("Task assignment lookup failed:", error.message);
+
+      return res.status(500).json({
+        message: "Unable to find task assignment.",
+      });
+    }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        message: "Task assignment not found.",
+      });
+    }
+
+    // Update only this employee's assignment
+    const updateQuery = `
+        UPDATE task_assignments
+        SET status = ?
+        WHERE id = ?
+      `;
+
+    db.query(updateQuery, [status, results[0].id], (updateError) => {
+      if (updateError) {
+        console.error("Task status update failed:", updateError.message);
+
+        return res.status(500).json({
+          message: "Unable to update task status.",
+        });
+      }
+
+      return res.status(200).json({
+        message: "Task status updated successfully.",
+        status,
+      });
+    });
+  });
+};
+
 module.exports = {
   createTask,
   getMyTasks,
@@ -944,6 +1278,10 @@ module.exports = {
   returnSubmission,
   getSubmissions,
   previewSubmission,
+  downloadSubmission,
   getTaskComments,
   createTaskComment,
+  createTaskProgress,
+  getTaskProgress,
+  updateTaskStatus, // NEW
 };

@@ -600,6 +600,7 @@ main {
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  font-family: "Inter", system-ui, sans-serif;
 }
 
 .task-modal-overlay[hidden] {

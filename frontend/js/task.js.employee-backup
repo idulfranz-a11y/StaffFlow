@@ -1,0 +1,531 @@
+// ==================================
+// GET HTML ELEMENTS
+// ==================================
+
+const taskList = document.getElementById("mytask-list");
+const taskCount = document.getElementById("task-count");
+
+const taskModal = document.getElementById("task-modal");
+const closeModal = document.getElementById("close-task");
+
+const modalTaskId = document.getElementById("modal-task-id");
+const modalTaskTitle = document.getElementById("modal-task-title");
+
+const modalDescription = document.getElementById("modal-description");
+const modalAssignedBy = document.getElementById("modal-assigned-by");
+const modalTeam = document.getElementById("modal-team");
+const modalDeadline = document.getElementById("modal-deadline");
+const modalPriority = document.getElementById("modal-priority");
+
+const modalStatus = document.getElementById("modal-status");
+
+const commentList = document.getElementById("comment-list");
+const commentInput = document.getElementById("comment-input");
+const addComment = document.getElementById("add-comment");
+
+// Submission elements
+const submissionStatus = document.getElementById("submission-status");
+const submissionFile = document.getElementById("submission-file");
+
+const selectedSubmissionFile = document.getElementById(
+  "selected-submission-file",
+);
+
+const submitWork = document.getElementById("submit-work");
+const unsubmitWork = document.getElementById("unsubmit-work");
+
+let tasks = [];
+let selectedTask = null;
+
+// ==================================
+// HELPER: PREVENT HTML INJECTION
+// ==================================
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+    (character) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;",
+      })[character],
+  );
+}
+
+// ==================================
+// RENDER TASK TABLE
+// ==================================
+
+function renderTasks() {
+  taskList.innerHTML = "";
+
+  tasks.forEach((task) => {
+    const row = document.createElement("tr");
+
+    row.classList.add("mytask-row");
+
+    const priorityClass = String(task.priority || "low").toLowerCase();
+    const statusClass = String(task.status || "pending")
+      .toLowerCase()
+      .replace(" ", "-");
+
+    row.innerHTML = `
+      <td>
+        <span class="task-name">
+          ${escapeHTML(task.title)}
+        </span>
+      </td>
+
+      <td>${escapeHTML(task.assignedBy)}</td>
+
+      <td>${escapeHTML(task.deadline)}</td>
+
+      <td>
+        <span class="priority ${priorityClass}">
+          ${escapeHTML(task.priority)}
+        </span>
+      </td>
+
+      <td>
+        <span class="status ${statusClass}">
+          ${escapeHTML(task.status)}
+        </span>
+      </td>
+    `;
+
+    row.addEventListener("click", () => {
+      openTaskModal(task.id);
+    });
+
+    taskList.appendChild(row);
+  });
+
+  taskCount.textContent = `${tasks.length} Tasks`;
+}
+
+// ==================================
+// OPEN TASK MODAL
+// ==================================
+
+function openTaskModal(taskId) {
+  selectedTask = tasks.find((task) => task.id === taskId);
+
+  if (!selectedTask) return;
+
+  modalTaskId.textContent = selectedTask.task_id;
+  modalTaskTitle.textContent = selectedTask.title;
+
+  modalDescription.textContent = selectedTask.description || "";
+
+  modalAssignedBy.textContent = selectedTask.assignedBy;
+  modalTeam.textContent = selectedTask.team;
+  modalDeadline.textContent = selectedTask.deadline;
+  modalPriority.textContent = selectedTask.priority;
+
+  modalStatus.value = selectedTask.status;
+
+  // Clear the previous task's selected file
+  submissionFile.value = "";
+
+  renderActivity();
+  renderSubmission();
+
+  taskModal.hidden = false;
+  document.body.style.overflow = "hidden";
+
+  loadTaskComments(selectedTask);
+}
+
+// ==================================
+// CLOSE TASK MODAL
+// ==================================
+
+function closeTaskModal() {
+  taskModal.hidden = true;
+
+  document.body.style.overflow = "";
+
+  selectedTask = null;
+}
+
+closeModal.addEventListener("click", closeTaskModal);
+
+taskModal.addEventListener("click", (event) => {
+  if (event.target === taskModal) {
+    closeTaskModal();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && !taskModal.hidden) {
+    closeTaskModal();
+  }
+});
+
+// ==================================
+// UPDATE TASK STATUS - SAVE TO DATABASE
+// ==================================
+
+modalStatus.addEventListener("change", async () => {
+  if (!selectedTask) return;
+
+  const task = selectedTask;
+  const previousStatus = task.status;
+  const newStatus = modalStatus.value;
+
+  try {
+    modalStatus.disabled = true;
+
+    const response = await fetch(
+      `/api/tasks/${encodeURIComponent(task.task_id)}/status`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          status: newStatus,
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to update task status.");
+    }
+
+    task.status = data.status;
+
+    renderTasks();
+  } catch (error) {
+    console.error("Status update failed:", error);
+
+    task.status = previousStatus;
+    modalStatus.value = previousStatus;
+
+    alert(error.message || "Unable to save task status.");
+  } finally {
+    modalStatus.disabled = false;
+  }
+});
+
+// ==================================
+// RENDER COMMENTS
+// ==================================
+
+function renderActivity() {
+  if (!selectedTask) return;
+
+  commentList.innerHTML = "";
+
+  if (!selectedTask.comments || selectedTask.comments.length === 0) {
+    commentList.innerHTML = "<p>No comments yet.</p>";
+    return;
+  }
+
+  selectedTask.comments.forEach((item) => {
+    const activity = document.createElement("div");
+
+    activity.classList.add("task-activity");
+
+    const author = `${item.first_name} ${item.last_name}`;
+
+    const commentDate = new Date(item.created_at);
+
+    const formattedDate = isNaN(commentDate.getTime())
+      ? item.created_at
+      : commentDate.toLocaleString();
+
+    activity.innerHTML = `
+      <strong>${escapeHTML(author)}</strong>
+      <p>${escapeHTML(item.comment)}</p>
+      <small>${escapeHTML(formattedDate)}</small>
+    `;
+
+    commentList.appendChild(activity);
+  });
+}
+
+// ==================================
+// LOAD COMMENTS FROM DATABASE
+// ==================================
+
+async function loadTaskComments(task) {
+  try {
+    const response = await fetch(
+      `/api/tasks/${encodeURIComponent(task.task_id)}/comments`,
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to load comments.");
+    }
+
+    task.comments = data;
+
+    if (selectedTask && selectedTask.id === task.id) {
+      renderActivity();
+    }
+  } catch (error) {
+    console.error("Comment loading failed:", error);
+
+    if (selectedTask && selectedTask.id === task.id) {
+      commentList.innerHTML = "<p>Unable to load comments.</p>";
+    }
+  }
+}
+
+// ==================================
+// ADD COMMENT - SAVE TO DATABASE
+// ==================================
+
+addComment.addEventListener("click", async () => {
+  if (!selectedTask) return;
+
+  const message = commentInput.value.trim();
+
+  if (!message) {
+    alert("Please enter a comment.");
+    return;
+  }
+
+  const task = selectedTask;
+
+  try {
+    addComment.disabled = true;
+
+    const response = await fetch(
+      `/api/tasks/${encodeURIComponent(task.task_id)}/comments`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          comment: message,
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to save comments.");
+    }
+
+    commentInput.value = "";
+
+    await loadTaskComments(task);
+  } catch (error) {
+    console.error("Comment saving failed:", error);
+
+    alert(error.message || "Unable to save your comment.");
+  } finally {
+    addComment.disabled = false;
+  }
+});
+
+// ==================================
+// RENDER WORK SUBMISSION
+// ==================================
+
+function renderSubmission() {
+  if (!selectedTask) return;
+
+  const submission = selectedTask.submission;
+
+  submissionStatus.innerHTML = "";
+
+  const statusText = document.createElement("p");
+
+  statusText.textContent = `Status: ${submission.status}`;
+
+  submissionStatus.appendChild(statusText);
+
+  if (submission.fileName) {
+    selectedSubmissionFile.textContent = `Submitted file: ${submission.fileName}`;
+  } else if (submission.file) {
+    selectedSubmissionFile.textContent = `Selected file: ${submission.file.name}`;
+  } else {
+    selectedSubmissionFile.textContent = "No file selected.";
+  }
+
+  const isSubmitted = submission.status === "Submitted";
+
+  // Hide upload button while submission is awaiting review
+  submitWork.hidden = isSubmitted;
+
+  // Disable file selection while submitted
+  submissionFile.disabled = isSubmitted;
+
+  // Withdrawal is not currently supported
+  unsubmitWork.hidden = true;
+
+  submitWork.textContent =
+    submission.status === "Returned for revision"
+      ? "Submit Revised Work"
+      : "Submit Work";
+}
+
+// ==================================
+// SELECT WORK FILE
+// ==================================
+
+submissionFile.addEventListener("change", () => {
+  if (!selectedTask) return;
+
+  const file = submissionFile.files[0];
+
+  if (!file) return;
+
+  const maxSize = 10 * 1024 * 1024;
+
+  if (file.size > maxSize) {
+    alert("File size must not exceed 10 MB.");
+
+    submissionFile.value = "";
+    return;
+  }
+
+  selectedTask.submission.file = file;
+
+  renderSubmission();
+});
+
+// ==================================
+// SUBMIT WORK - CONNECT TO BACKEND
+// ==================================
+
+submitWork.addEventListener("click", async () => {
+  if (!selectedTask) return;
+
+  const task = selectedTask;
+
+  // Prevent another submission while the current one is Submitted
+  if (task.submission.status === "Submitted") {
+    alert(
+      "Your work is already submitted. Please wait for your manager to return it for revision.",
+    );
+
+    renderSubmission();
+    return;
+  }
+
+  const file = submissionFile.files[0];
+
+  if (!file) {
+    alert("Please select a file before submitting your work.");
+    return;
+  }
+
+  if (file.size > 10 * 1024 * 1024) {
+    alert("File size must not exceed 10 MB.");
+    return;
+  }
+
+  const formData = new FormData();
+
+  // Must match upload.single("submission") in Express
+  formData.append("submission", file);
+
+  try {
+    submitWork.disabled = true;
+    submitWork.textContent = "Uploading...";
+
+    const response = await fetch(
+      `/api/tasks/${encodeURIComponent(task.task_id)}/submit`,
+      {
+        method: "POST",
+        body: formData,
+      },
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Unable to submit your work.");
+    }
+
+    // Update the frontend only after the server confirms success
+    task.submission.status = data.submission.status;
+    task.submission.fileName = data.submission.file_name;
+    task.submission.versionId = data.submission.id;
+    task.submission.file = null;
+
+    submissionFile.value = "";
+
+    renderSubmission();
+
+    alert(data.message || "Your work has been submitted successfully.");
+  } catch (error) {
+    console.error("Work submission failed:", error);
+
+    alert(error.message || "An error occurred while submitting your work.");
+  } finally {
+    if (selectedTask === task) {
+      renderSubmission();
+    }
+
+    submitWork.disabled = false;
+  }
+});
+
+// ==================================
+// UNSUBMIT WORK
+// ==================================
+
+// No withdrawal endpoint exists yet.
+// The button remains hidden until that feature is implemented.
+
+// ==================================
+// LOAD TASKS FROM DATABASE
+// ==================================
+
+async function loadTasks() {
+  try {
+    const response = await fetch("/api/tasks/my-tasks");
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to load tasks.");
+    }
+
+    tasks = data.tasks.map((task) => ({
+      ...task,
+
+      // Get the employee's saved status from MySQL
+      status: task.status || "Pending",
+
+      team: `Team ${task.team_id}`,
+
+      comments: [],
+
+      // Read the latest submission information from MySQL
+      submission: {
+        file: null,
+        fileName: task.submission_file_name || null,
+        status: task.submission_status || "Not submitted",
+        versionId: task.submission_version_id || null,
+        submittedAt: task.submitted_at || null,
+      },
+    }));
+
+    renderTasks();
+  } catch (error) {
+    console.error("Task loading failed:", error);
+
+    taskList.innerHTML = "<tr><td colspan='5'>Unable to load tasks.</td></tr>";
+  }
+}
+
+// ==================================
+// INITIALIZE
+// ==================================
+
+loadTasks();
